@@ -1,0 +1,220 @@
+.fieldGroup {
+  margin-bottom: 1.25rem;
+}
+
+.fieldLabel {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.fieldRow {
+  display: flex;
+  gap: 12px;
+}
+
+.fieldRow>* {
+  flex: 1;
+}
+
+.errorMsg {
+  font-size: 12px;
+  color: var(--color-danger);
+  margin-top: 6px;
+}
+
+/* Gender */
+.genderGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.genderBtn {
+  flex: 1;
+  padding: 14px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.15s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.genderBtn:hover {
+  border-color: #5DCAA5;
+}
+
+.genderBtn.selected {
+  border-color: #0f6e56;
+  background: #E1F5EE;
+  color: #085041;
+}
+
+.genderIcon {
+  font-size: 22px;
+}
+
+/* Goal */
+.goalGroup {
+  display: flex;
+  gap: 10px;
+}
+
+.goalBtn {
+  flex: 1;
+  padding: 16px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: center;
+  line-height: 1.4;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.goalBtn:hover {
+  border-color: #5DCAA5;
+}
+
+.goalBtn.selected {
+  border-color: #0f6e56;
+  background: #E1F5EE;
+}
+
+.goalIcon {
+  font-size: 22px;
+}
+
+.goalName {
+  font-weight: 500;
+}
+
+.goalDesc {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+}
+
+.goalBtn.selected .goalDesc {
+  color: #0f6e56;
+}
+
+/* Activity */
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.activityBtn {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 16px;
+  border-radius: 8px;
+  border: 1px solid var(--color-border);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: all 0.15s;
+  text-align: left;
+  width: 100%;
+}
+
+.activityBtn:hover {
+  border-color: #5DCAA5;
+}
+
+.activityBtn.selected {
+  border-color: #0f6e56;
+  background: #E1F5EE;
+}
+
+.activityDot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-border);
+  flex-shrink: 0;
+  transition: background 0.15s;
+}
+
+.dotSelected {
+  background: #0f6e56;
+}
+
+.activityName {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.activityDesc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-top: 2px;
+}
+
+/* Result */
+.resultCard {
+  background: var(--color-surface-alt);
+  border-radius: 12px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.resultHeadline {
+  font-size: 14px;
+  color: var(--color-text-secondary);
+  line-height: 1.65;
+}
+
+.resultRow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 1rem;
+}
+
+.resultMetric {
+  background: var(--color-surface);
+  border-radius: 8px;
+  padding: 12px;
+  border: 0.5px solid var(--color-border);
+}
+
+.rLabel {
+  font-size: 11px;
+  color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+  margin-bottom: 4px;
+}
+
+.rVal {
+  font-size: 20px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.rUnit {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+}
+
+.highlight .rVal {
+  color: #0f6e56;
+}
