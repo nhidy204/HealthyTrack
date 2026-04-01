@@ -22,7 +22,7 @@ const ForgotPasswordPage: React.FC = () => {
     const [sent, setSent] = useState(false);
 
     const onSubmit = (data: ForgotPasswordForm) => {
-        forgotMutation.mutate(data, { 
+        forgotMutation.mutate(data, {
             onSuccess: () => setSent(true), //nếu spi trả về thành công --> cập nhật trạng thái sent sang true 
         });
     };

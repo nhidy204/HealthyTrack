@@ -5,6 +5,7 @@ export function useWeeklyReport(weekOffset = 0) { //weekOffset: 0 --> tuần nà
     return useQuery({
         queryKey: ['reports', 'weekly', weekOffset],
         queryFn: () => reportsService.getWeeklyReport(weekOffset),
-        staleTime: 1000 * 60 * 5, //đặt 5' cho tkiem tnguyen cho server, kiểu bấm qua bấm lại giữa các tuần trong vòng 5 phút sẽ hiện lên nhanh
+        staleTime: 1000 * 60 * 5,
+        //đặt 5' cho tkiem tnguyen cho server, kiểu bấm qua bấm lại giữa các tuần trong vòng 5 phút sẽ hiện lên nhanh
     });
 }

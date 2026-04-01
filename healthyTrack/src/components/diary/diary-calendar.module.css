@@ -82,7 +82,6 @@
     cursor: default;
 }
 
-/* Status colors */
 .status_ok {
     background: #E1F5EE;
     color: #085041;
@@ -113,20 +112,17 @@
     opacity: 0.35;
 }
 
-/* Today ring */
 .today {
     outline: 2px solid #0f6e56;
     outline-offset: -2px;
 }
 
-/* Selected ring */
 .selected {
     outline: 2px solid #0f6e56;
     outline-offset: -2px;
     font-weight: 500;
 }
 
-/* Legend */
 .legend {
     display: flex;
     gap: 10px;

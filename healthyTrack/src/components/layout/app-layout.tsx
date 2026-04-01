@@ -4,7 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '../../store/auth-store';
 import { useThemeStore } from '../../store/theme-store';
 import { useProfile } from '../../hooks/use-onboarding';
-import LanguageSwitcher from '../ui/language-switcher'; 
+import LanguageSwitcher from '../ui/language-switcher';
 import styles from './app-layout.module.css';
 
 interface AppLayoutProps {
@@ -21,9 +21,9 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, title }) => {
 
   const NAV_ITEMS = [
     { to: '/dashboard', icon: '◈', label: t('nav.dashboard') },
-    { to: '/diary',     icon: '📓', label: t('nav.diary') },
-    { to: '/reports',   icon: '📊', label: t('nav.reports') },
-    { to: '/profile',   icon: '👤', label: t('nav.profile') },
+    { to: '/diary', icon: '📓', label: t('nav.diary') },
+    { to: '/reports', icon: '📊', label: t('nav.reports') },
+    { to: '/profile', icon: '👤', label: t('nav.profile') },
   ];
 
   const handleLogout = () => {
@@ -34,8 +34,8 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, title }) => {
   const goalLabel = profile?.goal === 'lose'
     ? t('onboarding.lose')
     : profile?.goal === 'gain'
-    ? t('onboarding.gain')
-    : t('onboarding.maintain');
+      ? t('onboarding.gain')
+      : t('onboarding.maintain');
 
   const initials = user
     ? (user.firstName[0] + user.lastName[0]).toUpperCase()
@@ -43,7 +43,6 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, title }) => {
 
   return (
     <div className={styles.root}>
-      {/* Sidebar */}
       <aside className={styles.sidebar}>
         <div className={styles.brand}>
           <span className={styles.brandIcon}>🌿</span>

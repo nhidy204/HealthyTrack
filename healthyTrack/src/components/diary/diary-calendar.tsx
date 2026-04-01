@@ -12,16 +12,16 @@ interface DiaryCalendarProps {
 }
 
 const MONTHS_VI = [
-  'Tháng 1','Tháng 2','Tháng 3','Tháng 4',
-  'Tháng 5','Tháng 6','Tháng 7','Tháng 8',
-  'Tháng 9','Tháng 10','Tháng 11','Tháng 12',
+  'Tháng 1', 'Tháng 2', 'Tháng 3', 'Tháng 4',
+  'Tháng 5', 'Tháng 6', 'Tháng 7', 'Tháng 8',
+  'Tháng 9', 'Tháng 10', 'Tháng 11', 'Tháng 12',
 ];
 const MONTHS_EN = [
-  'January','February','March','April','May','June',
-  'July','August','September','October','November','December',
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
 ];
-const DOWS_VI = ['T2','T3','T4','T5','T6','T7','CN'];
-const DOWS_EN = ['Mo','Tu','We','Th','Fr','Sa','Su'];
+const DOWS_VI = ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'];
+const DOWS_EN = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
 
 function toIsoLocal(year: number, month: number, day: number): string {
   return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
@@ -45,26 +45,26 @@ const DiaryCalendar: React.FC<DiaryCalendarProps> = ({
   const { t } = useTranslation();
   const today = todayIso();
 
-  const initYear  = parseInt(selectedDate.split('-')[0]);
+  const initYear = parseInt(selectedDate.split('-')[0]);
   const initMonth = parseInt(selectedDate.split('-')[1]) - 1;
 
-  const [viewYear, setViewYear]   = useState(initYear);
+  const [viewYear, setViewYear] = useState(initYear);
   const [viewMonth, setViewMonth] = useState(initMonth);
 
   const MONTHS = locale === 'vi' ? MONTHS_VI : MONTHS_EN;
-  const DOWS   = locale === 'vi' ? DOWS_VI   : DOWS_EN;
+  const DOWS = locale === 'vi' ? DOWS_VI : DOWS_EN;
 
   const changeMonth = (dir: number) => {
     let m = viewMonth + dir;
     let y = viewYear;
-    if (m < 0)  { m = 11; y--; }
-    if (m > 11) { m = 0;  y++; }
+    if (m < 0) { m = 11; y--; }
+    if (m > 11) { m = 0; y++; }
     setViewMonth(m);
     setViewYear(y);
     if (onViewDateChange) onViewDateChange(y, m);
   };
 
-  const todayYear  = parseInt(today.split('-')[0]);
+  const todayYear = parseInt(today.split('-')[0]);
   const todayMonth = parseInt(today.split('-')[1]) - 1;
   const isCurrentOrFutureMonth =
     viewYear > todayYear ||
@@ -110,7 +110,7 @@ const DiaryCalendar: React.FC<DiaryCalendarProps> = ({
           const iso = toIsoLocal(viewYear, viewMonth, day);
           const status = getStatus(iso);
           const isSelected = iso === selectedDate;
-          const isToday    = iso === today;
+          const isToday = iso === today;
 
           return (
             <button
@@ -122,7 +122,7 @@ const DiaryCalendar: React.FC<DiaryCalendarProps> = ({
                 styles.day,
                 styles[`status_${status}`],
                 isSelected ? styles.selected : '',
-                isToday    ? styles.today    : '',
+                isToday ? styles.today : '',
               ].join(' ')}
             >
               {day}

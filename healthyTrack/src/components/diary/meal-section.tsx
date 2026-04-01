@@ -11,8 +11,6 @@ interface MealSectionProps {
 
 const MealSection: React.FC<MealSectionProps> = ({ meal, onAdd, onDelete }) => {
     const { t } = useTranslation();
-    
-    // Get translated meal label
     const mealLabels: Record<string, string> = {
         breakfast: t('diary.breakfast'),
         lunch: t('diary.lunch'),

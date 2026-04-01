@@ -31,7 +31,7 @@ const CalorieDonut: React.FC<CalorieDonutProps> = ({ consumed, target }) => {
                             fill="none"
                             stroke={strokeColor}
                             strokeWidth="18"
-                            strokeDasharray={CIRC} 
+                            strokeDasharray={CIRC}
                             strokeDashoffset={offset}
                             strokeLinecap="round"
                             transform="rotate(-90 70 70)"

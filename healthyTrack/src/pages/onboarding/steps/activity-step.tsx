@@ -11,7 +11,7 @@ const ActivityStep: React.FC = () => {
         formState: { errors },
     } = useFormContext<OnboardingForm>();
 
-    const activityLevel = watch('activityLevel'); 
+    const activityLevel = watch('activityLevel');
 
     return (
         <div>

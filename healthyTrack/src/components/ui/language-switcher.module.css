@@ -10,4 +10,7 @@
   font-family: var(--font-body);
   transition: background 0.15s;
 }
-.btn:hover { background: var(--color-surface-alt); }
+
+.btn:hover {
+  background: var(--color-surface-alt);
+}

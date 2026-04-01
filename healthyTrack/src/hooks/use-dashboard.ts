@@ -1,13 +1,9 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-//useQuery --> lấy đọc dl từ server về
-//useMutation --> gửi (thêm, sửa xóa) dữ liệu lên server
-//useQueryClient --> can thiệp vô bộ nhớ đệm (cache) của udung
 import { dashboardService } from '../services/dashboard-service';
 
 const today = () => new Date().toISOString().split('T')[0];
 
 export const DASHBOARD_KEYS = {
-    //react-query lưu trữ dữ liệu như nhãn dán --> tìm cho dễ 
     summary: (date: string) => ['dashboard', 'summary', date],
     weightHistory: (days: number) => ['dashboard', 'weight', days],
     water: (date: string) => ['dashboard', 'water', date],
@@ -51,10 +47,10 @@ export function useWaterLog(date = today()) {
 
 export function useLogWater() {
     const qc = useQueryClient();
-    return useMutation({ //gửi số ly mới lên server
+    return useMutation({
         mutationFn: ({ glasses, date }: { glasses: number; date?: string }) =>
             dashboardService.logWater(glasses, date),
-        onSuccess: () => { //thành công thì tải lại dữ liệu để đẩy bar
+        onSuccess: () => {
             qc.invalidateQueries({ queryKey: ['dashboard', 'water'] });
         },
     });

@@ -17,7 +17,7 @@ const DashboardPage: React.FC = () => {
     const today = new Date().toISOString().split('T')[0];
     const { data: summary, isLoading } = useDailySummary(today);
 
-    const target = summary?.targetCalories ?? profile?.targetCalories ?? 0; 
+    const target = summary?.targetCalories ?? profile?.targetCalories ?? 0;
     const consumed = summary?.totalCalories ?? 0;
     const remaining = Math.max(0, target - consumed);
 

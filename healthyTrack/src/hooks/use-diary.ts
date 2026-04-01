@@ -15,11 +15,9 @@ export function useDiaryEntries(date: string) {
     });
 }
 
-// group food theo meal
 export function groupByMeal(entries: FoodEntry[]): MealGroup[] {
     return MEAL_ORDER.map((mealType) => {
         const foods = entries.filter((e) => e.mealType === mealType);
-
         return {
             mealType,
             icon: MEAL_META[mealType].icon,
@@ -30,7 +28,6 @@ export function groupByMeal(entries: FoodEntry[]): MealGroup[] {
     });
 }
 
-// ADD FOOD
 export function useAddFoodEntry(date: string) {
   const qc = useQueryClient();
   const d = new Date(date);

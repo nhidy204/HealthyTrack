@@ -11,7 +11,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
     const { t } = useTranslation();
     return (
         <div className={styles.root}>
-            {/* Language switcher */}
             <div className={styles.headerRight}>
                 <LanguageSwitcher />
             </div>
@@ -44,7 +43,6 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
                 </div>
             </aside>
 
-            {/* Right: form area */}
             <main className={styles.right}>{children}</main>
         </div>
     );
