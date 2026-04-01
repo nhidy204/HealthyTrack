@@ -5,39 +5,40 @@ import AuthLayout from '../../components/layout/auth-layout';
 import Input from '../../components/ui/input';
 import Button from '../../components/ui/button';
 import { useForgotPassword } from '../../hooks/use-auth';
+import { useTranslation } from 'react-i18next';
 import type { ForgotPasswordForm } from '../../types/auth-types';
 import styles from './Auth.module.css';
 
 const ForgotPasswordPage: React.FC = () => {
+    const { t } = useTranslation();
     const {
         register,
-        handleSubmit,
+        handleSubmit, 
         formState: { errors },
         getValues,
-    } = useForm<ForgotPasswordForm>();
+    } = useForm<ForgotPasswordForm>(); 
 
     const forgotMutation = useForgotPassword();
     const [sent, setSent] = useState(false);
 
     const onSubmit = (data: ForgotPasswordForm) => {
-        forgotMutation.mutate(data, {
-            onSuccess: () => setSent(true),
+        forgotMutation.mutate(data, { 
+            onSuccess: () => setSent(true), //nếu spi trả về thành công --> cập nhật trạng thái sent sang true 
         });
     };
 
     if (sent) {
         return (
+            //sent = true thành công thì hiện ra 
             <AuthLayout>
                 <div className={styles.card}>
                     <div className={styles.successIcon}>✉️</div>
-                    <h1 className={styles.title}>Kiểm tra email của bạn</h1>
+                    <h1 className={styles.title}>{t('auth.checkYourEmail')}</h1>
                     <p className={styles.subtitle}>
-                        Chúng tôi đã gửi link đặt lại mật khẩu đến{' '}
-                        <strong>{getValues('email')}</strong>.
-                        Vui lòng kiểm tra hộp thư (kể cả thư mục spam).
+                        {t('auth.emailSent', { email: getValues('email') })}
                     </p>
                     <Link to="/login" className={styles.backLink}>
-                        ← Quay lại đăng nhập
+                        {t('auth.backToLogin')}
                     </Link>
                 </div>
             </AuthLayout>
@@ -45,41 +46,42 @@ const ForgotPasswordPage: React.FC = () => {
     }
 
     return (
+        //sent = false thì hiện form nhập email
         <AuthLayout>
             <div className={styles.card}>
                 <Link to="/login" className={styles.backLink}>
-                    ← Quay lại đăng nhập
+                    {t('auth.backToLogin')}
                 </Link>
 
-                <h1 className={styles.title}>Quên mật khẩu?</h1>
+                <h1 className={styles.title}>{t('auth.forgotPasswordTitle')}</h1>
                 <p className={styles.subtitle}>
-                    Nhập email đã đăng ký, chúng tôi sẽ gửi link đặt lại mật khẩu.
+                    {t('auth.forgotPasswordDesc')}
                 </p>
 
                 {forgotMutation.isError && (
                     <div className={styles.alertError}>
-                        {(forgotMutation.error as Error)?.message ?? 'Có lỗi xảy ra.'}
+                        {(forgotMutation.error as Error)?.message ?? t('auth.generalError')}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <Input
-                        label="Email"
+                        label={t('auth.email')}
                         type="email"
                         placeholder="email@example.com"
                         autoComplete="email"
                         error={errors.email?.message}
                         {...register('email', {
-                            required: 'Vui lòng nhập email.',
+                            required: t('validation.usernameRequired'),
                             pattern: {
                                 value: /^[^@]+@[^@]+\.[^@]+$/,
-                                message: 'Email không hợp lệ.',
+                                message: t('validation.emailInvalid'),
                             },
                         })}
                     />
 
                     <Button type="submit" fullWidth loading={forgotMutation.isPending}>
-                        Gửi link đặt lại
+                        {t('auth.sendResetLink')}
                     </Button>
                 </form>
             </div>

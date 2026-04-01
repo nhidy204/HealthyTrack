@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+import LanguageSwitcher from '../ui/language-switcher';
 import styles from './auth-layout.module.css';
 
 interface AuthLayoutProps {
@@ -6,8 +8,14 @@ interface AuthLayoutProps {
 }
 
 const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
+    const { t } = useTranslation();
     return (
         <div className={styles.root}>
+            {/* Language switcher */}
+            <div className={styles.headerRight}>
+                <LanguageSwitcher />
+            </div>
+
             {/* Left decorative panel */}
             <aside className={styles.left}>
                 <div className={styles.brand}>
@@ -16,18 +24,17 @@ const AuthLayout: React.FC<AuthLayoutProps> = ({ children }) => {
                 </div>
 
                 <h2 className={styles.headline}>
-                    Sức khỏe tốt hơn<br />mỗi ngày
+                    {t('auth.headline')}
                 </h2>
                 <p className={styles.tagline}>
-                    Theo dõi calo, cân nặng và thói quen sinh hoạt
-                    để đạt mục tiêu sức khỏe của bạn.
+                    {t('auth.tagline')}
                 </p>
 
                 <div className={styles.stats}>
                     {[
-                        { num: '10k+', label: 'Người dùng' },
-                        { num: '98%', label: 'Hài lòng' },
-                        { num: '4.9★', label: 'Đánh giá' },
+                        { num: '10k+', label: t('auth.users') },
+                        { num: '98%', label: t('auth.satisfied') },
+                        { num: '4.9★', label: t('auth.rating') },
                     ].map((s) => (
                         <div key={s.label} className={styles.statBox}>
                             <div className={styles.statNum}>{s.num}</div>

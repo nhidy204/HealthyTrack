@@ -1,5 +1,6 @@
 import React from 'react';
 import { useWaterLog, useLogWater } from '../../hooks/use-dashboard';
+import { useTranslation } from 'react-i18next';
 import styles from './reminder-card.module.css';
 
 const WATER_TARGET = 8;
@@ -10,6 +11,7 @@ interface ReminderCardProps {
 }
 
 const ReminderCard: React.FC<ReminderCardProps> = ({ exerciseMinutes = 0 }) => {
+    const { t } = useTranslation();
     const today = new Date().toISOString().split('T')[0];
     const { data: waterLog } = useWaterLog(today);
     const logWater = useLogWater();
@@ -28,7 +30,7 @@ const ReminderCard: React.FC<ReminderCardProps> = ({ exerciseMinutes = 0 }) => {
     const nextHour = Math.ceil((now.getHours() - 7) / 2) * 2 + 7;
     const nextReminder = nextHour <= 21
         ? `${String(nextHour).padStart(2, '0')}:00`
-        : 'Đã xong hôm nay';
+        : t('diary.addNow');
 
     return (
         <div>
@@ -36,30 +38,30 @@ const ReminderCard: React.FC<ReminderCardProps> = ({ exerciseMinutes = 0 }) => {
                 {/* Water */}
                 <div className={styles.reminderBox}>
                     <div className={styles.reminderIcon}>💧</div>
-                    <div className={styles.reminderLabel}>Uống nước</div>
-                    <div className={styles.reminderVal}>{glasses} / {WATER_TARGET} ly</div>
+                    <div className={styles.reminderLabel}>{t('components.water')}</div>
+                    <div className={styles.reminderVal}>{glasses} / {WATER_TARGET} {t('components.glasses')}</div>
                     <div className={styles.progressBar}>
                         <div className={styles.progressFill} style={{ width: waterPct + '%', background: '#378ADD' }} />
                     </div>
                     <button className={styles.addBtn} onClick={addGlass} disabled={glasses >= WATER_TARGET}>
-                        + Thêm ly
+                        {t('components.addMealGlass')}
                     </button>
                 </div>
 
                 {/* Exercise */}
                 <div className={styles.reminderBox}>
                     <div className={styles.reminderIcon}>🏃</div>
-                    <div className={styles.reminderLabel}>Vận động</div>
-                    <div className={styles.reminderVal}>{exerciseMinutes} / {EXERCISE_TARGET} phút</div>
+                    <div className={styles.reminderLabel}>{t('components.exercise')}</div>
+                    <div className={styles.reminderVal}>{exerciseMinutes} / {EXERCISE_TARGET} {t('components.minutes')}</div>
                     <div className={styles.progressBar}>
                         <div className={styles.progressFill} style={{ width: exercisePct + '%', background: '#0f6e56' }} />
                     </div>
-                    <div className={styles.reminderHint}>Mục tiêu 60 phút/ngày</div>
+                    <div className={styles.reminderHint}>{t('components.goalPerDay', { target: EXERCISE_TARGET })}</div>
                 </div>
             </div>
 
             <p className={styles.nextReminder}>
-                Nhắc uống nước tiếp theo lúc <strong>{nextReminder}</strong>
+                {t('components.nextReminder')} <strong>{nextReminder}</strong>
             </p>
         </div>
     );

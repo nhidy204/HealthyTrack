@@ -7,12 +7,14 @@ import { useProfile } from '../../hooks/use-onboarding';
 import { useUpdateUserProfile } from '../../hooks/use-profile';
 import { useAuthStore } from '../../store/auth-store';
 import { useThemeStore } from '../../store/theme-store';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ACTIVITY_OPTIONS, GOAL_OPTIONS } from '../../types/onboarding-types';
 import type { UpdateProfilePayload } from '../../types/profile-types';
 import styles from './profile-page.module.css';
 
 const ProfilePage: React.FC = () => {
+    const { t } = useTranslation();
     const { user, logout } = useAuthStore();
     const { isDark, toggleTheme } = useThemeStore();
     const { data: profile, isLoading } = useProfile();
@@ -46,15 +48,15 @@ const ProfilePage: React.FC = () => {
         ? (user.firstName[0] + user.lastName[0]).toUpperCase()
         : '?';
 
-    const goalLabel = profile?.goal === 'lose' ? 'Giảm cân'
-        : profile?.goal === 'gain' ? 'Tăng cân' : 'Duy trì';
+    const goalLabel = profile?.goal === 'lose' ? t('onboarding.lose')
+        : profile?.goal === 'gain' ? t('onboarding.gain') : t('onboarding.maintain');
 
     if (isLoading) {
-        return <AppLayout title="Hồ sơ"><div className={styles.loading}>Đang tải...</div></AppLayout>;
+        return <AppLayout title={t('profile.title')}><div className={styles.loading}>{t('common.loading')}</div></AppLayout>;
     }
 
     return (
-        <AppLayout title="Hồ sơ cá nhân">
+        <AppLayout title={t('profile.title')}>
             <div className={styles.root}>
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <div className={styles.card}>
@@ -63,56 +65,56 @@ const ProfilePage: React.FC = () => {
                             <div>
                                 <div className={styles.profileName}>{user?.lastName} {user?.firstName}</div>
                                 <div className={styles.profileSub}>
-                                    Mục tiêu: {goalLabel} · {profile?.targetCalories?.toLocaleString()} kcal/ngày
+                                    {t('profile.goal')} {goalLabel} · {profile?.targetCalories?.toLocaleString()} {t('profile.targetCalories')}
                                 </div>
                             </div>
                         </div>
 
                         {/* success / error messages */}
                         {updateProfile.isSuccess && (
-                            <div className={styles.alertSuccess}>✓ Đã lưu thông tin thành công!</div>
+                            <div className={styles.alertSuccess}>✓ {t('profile.saveSuccess')}</div>
                         )}
                         {updateProfile.isError && (
                             <div className={styles.alertError}>
-                                {(updateProfile.error as Error)?.message ?? 'Có lỗi xảy ra.'}
+                                {(updateProfile.error as Error)?.message ?? t('auth.generalError')}
                             </div>
                         )}
 
-                        <div className={styles.sectionTitle}>Thông tin cá nhân</div>
+                        <div className={styles.sectionTitle}>{t('profile.personalInfo')}</div>
                         <div className={styles.formGrid}>
-                            <Input label="Họ" error={errors.lastName?.message}
-                                {...register('lastName', { required: 'Nhập họ.' })} />
-                            <Input label="Tên" error={errors.firstName?.message}
-                                {...register('firstName', { required: 'Nhập tên.' })} />
-                            <Input label="Email" type="email" error={errors.email?.message}
+                            <Input label={t('auth.lastName')} error={errors.lastName?.message}
+                                {...register('lastName', { required: t('validation.lastNameRequired') })} />
+                            <Input label={t('auth.firstName')} error={errors.firstName?.message}
+                                {...register('firstName', { required: t('validation.firstNameRequired') })} />
+                            <Input label={t('auth.email')} type="email" error={errors.email?.message}
                                 {...register('email', {
-                                    required: 'Nhập email.',
-                                    pattern: { value: /^[^@]+@[^@]+\.[^@]+$/, message: 'Email không hợp lệ.' },
+                                    required: t('validation.usernameRequired'),
+                                    pattern: { value: /^[^@]+@[^@]+\.[^@]+$/, message: t('validation.emailInvalid') },
                                 })} />
                             <div>
-                                <label className={styles.selectLabel}>Giới tính</label>
+                                <label className={styles.selectLabel}>{t('onboarding.gender')}</label>
                                 <select className={styles.select} {...register('gender')}>
-                                    <option value="male">Nam</option>
-                                    <option value="female">Nữ</option>
+                                    <option value="male">{t('onboarding.male')}</option>
+                                    <option value="female">{t('onboarding.female')}</option>
                                 </select>
                             </div>
                         </div>
 
-                        <div className={styles.sectionTitle}>Chỉ số cơ thể</div>
+                        <div className={styles.sectionTitle}>{t('profile.bodyMetrics')}</div>
                         <div className={styles.formGrid}>
-                            <Input label="Tuổi" type="number" suffix="tuổi" error={errors.age?.message}
+                            <Input label={t('onboarding.age')} type="number" suffix={t('common.years')} error={errors.age?.message}
                                 {...register('age', { required: true, min: 10, max: 100, valueAsNumber: true })} />
-                            <Input label="Chiều cao" type="number" suffix="cm" error={errors.height?.message}
+                            <Input label={t('onboarding.height')} type="number" suffix={t('common.cm')} error={errors.height?.message}
                                 {...register('height', { required: true, min: 100, max: 250, valueAsNumber: true })} />
-                            <Input label="Cân nặng" type="number" suffix="kg" error={errors.weight?.message}
+                            <Input label={t('onboarding.weight')} type="number" suffix={t('common.kg')} error={errors.weight?.message}
                                 {...register('weight', { required: true, min: 20, max: 300, valueAsNumber: true })} />
                         </div>
 
                         {/*goal*/}
-                        <div className={styles.sectionTitle}>Mục tiêu & Vận động</div>
+                        <div className={styles.sectionTitle}>{t('profile.goalActivity')}</div>
                         <div className={styles.formGrid}>
                             <div>
-                                <label className={styles.selectLabel}>Mục tiêu</label>
+                                <label className={styles.selectLabel}>{t('onboarding.goal')}</label>
                                 <select className={styles.select} {...register('goal')}>
                                     {GOAL_OPTIONS.map(o => (
                                         <option key={o.value} value={o.value}>{o.label}</option>
@@ -120,7 +122,7 @@ const ProfilePage: React.FC = () => {
                                 </select>
                             </div>
                             <div>
-                                <label className={styles.selectLabel}>Mức độ vận động</label>
+                                <label className={styles.selectLabel}>{t('onboarding.activity')}</label>
                                 <select className={styles.select} {...register('activityLevel', { valueAsNumber: true })}>
                                     {ACTIVITY_OPTIONS.map(o => (
                                         <option key={o.value} value={o.value}>{o.label}</option>
@@ -131,16 +133,16 @@ const ProfilePage: React.FC = () => {
 
                         <div className={styles.btnRow}>
                             <Button type="submit" loading={updateProfile.isPending} disabled={!isDirty}>
-                                Lưu thay đổi
+                                {t('profile.saveChanges')}
                             </Button>
                         </div>
                     </div>
 
                     <div className={styles.card}>
-                        <div className={styles.cardTitle}>Cài đặt</div>
+                        <div className={styles.cardTitle}>{t('profile.settings')}</div>
 
                         <div className={styles.toggleRow}>
-                            <span className={styles.toggleLabel}>Chế độ tối</span>
+                            <span className={styles.toggleLabel}>{t('profile.darkMode')}</span>
                             <label className={styles.toggle}>
                                 <input type="checkbox" checked={isDark} onChange={toggleTheme} />
                                 <span className={styles.toggleSlider} />
@@ -148,7 +150,7 @@ const ProfilePage: React.FC = () => {
                         </div>
 
                         <div className={styles.toggleRow} style={{ borderBottom: 'none' }}>
-                            <span className={styles.toggleLabel}>Nhắc nhở uống nước (mỗi 2 giờ)</span>
+                            <span className={styles.toggleLabel}>{t('profile.waterReminder')}</span>
                             <label className={styles.toggle}>
                                 <input type="checkbox" defaultChecked />
                                 <span className={styles.toggleSlider} />
@@ -158,9 +160,9 @@ const ProfilePage: React.FC = () => {
 
                     {/* Danger zone */}
                     <div className={styles.card}>
-                        <div className={styles.cardTitle}>Tài khoản</div>
+                        <div className={styles.cardTitle}>{t('profile.account')}</div>
                         <button type="button" className={styles.logoutBtn} onClick={handleLogout}>
-                            Đăng xuất
+                            {t('profile.logout')}
                         </button>
                     </div>
                 </form>

@@ -6,9 +6,11 @@ import Input from '../../components/ui/input';
 import Button from '../../components/ui/button';
 import { useLogin } from '../../hooks/use-auth';
 import type { LoginForm } from '../../types/auth-types';
+import { useTranslation } from 'react-i18next';
 import styles from './Auth.module.css';
 
 const LoginPage: React.FC = () => {
+    const { t } = useTranslation();
     const {
         register,
         handleSubmit,
@@ -24,66 +26,55 @@ const LoginPage: React.FC = () => {
     return (
         <AuthLayout>
             <div className={styles.card}>
-                {/* Tab header */}
                 <div className={styles.tabs}>
-                    <span className={`${styles.tab} ${styles.activeTab}`}>Đăng nhập</span>
-                    <Link to="/register" className={styles.tab}>Đăng ký</Link>
+                    <span className={`${styles.tab} ${styles.activeTab}`}>{t('auth.login')}</span>
+                    <Link to="/register" className={styles.tab}>{t('auth.register')}</Link>
                 </div>
 
-                <h1 className={styles.title}>Chào mừng trở lại</h1>
-                <p className={styles.subtitle}>
-                    Đăng nhập để tiếp tục hành trình sức khỏe của bạn.
-                </p>
+                <h1 className={styles.title}>{t('auth.welcomeBack')}</h1>
+                <p className={styles.subtitle}>{t('auth.loginSubtitle')}</p>
 
-                {/* API error */}
                 {loginMutation.isError && (
                     <div className={styles.alertError}>
-                        {(loginMutation.error as Error)?.message ?? 'Đăng nhập thất bại.'}
+                        {(loginMutation.error as Error)?.message ?? t('auth.loginFailed')}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <Input
-                        label="Tên đăng nhập"
-                        placeholder="Nhập username"
+                        label={t('auth.username')}
+                        placeholder={t('auth.username')}
                         autoComplete="username"
                         error={errors.username?.message}
                         {...register('username', {
-                            required: 'Vui lòng nhập tên đăng nhập.',
-                            minLength: { value: 3, message: 'Username tối thiểu 3 ký tự.' },
+                            required: t('validation.usernameRequired'),
+                            minLength: { value: 3, message: t('validation.usernameMin') },
                         })}
                     />
-
                     <Input
-                        label="Mật khẩu"
+                        label={t('auth.password')}
                         type="password"
                         placeholder="••••••••"
                         autoComplete="current-password"
                         error={errors.password?.message}
                         {...register('password', {
-                            required: 'Vui lòng nhập mật khẩu.',
+                            required: t('validation.passwordRequired'),
                         })}
                     />
-
                     <div className={styles.forgotRow}>
                         <Link to="/forgot-password" className={styles.forgotLink}>
-                            Quên mật khẩu?
+                            {t('auth.forgotPassword')}
                         </Link>
                     </div>
-
-                    <Button
-                        type="submit"
-                        fullWidth
-                        loading={loginMutation.isPending}
-                    >
-                        Đăng nhập
+                    <Button type="submit" fullWidth loading={loginMutation.isPending}>
+                        {t('auth.login')}
                     </Button>
                 </form>
 
                 <p className={styles.switchText}>
-                    Chưa có tài khoản?{' '}
+                    {t('auth.noAccount')}{' '}
                     <Link to="/register" className={styles.switchLink}>
-                        Tạo tài khoản mới
+                        {t('auth.createAccount')}
                     </Link>
                 </p>
             </div>

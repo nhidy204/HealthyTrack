@@ -18,6 +18,6 @@ export function useUpdateUserProfile() {
 export function useChangePassword() {
     return useMutation({
         mutationFn: (payload: ChangePasswordPayload) =>
-            api.post('/auth/change-password', payload).then(r => r.data),
+            api.post('/auth/change-password', payload).then(r => r.data), 
     });
 }

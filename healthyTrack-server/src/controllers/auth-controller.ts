@@ -5,28 +5,32 @@ import type { AuthRequest } from '../middleware/auth';
 
 // POST /api/auth/register
 export async function register(req: Request, res: Response) {
-    try {
-        const { firstName, lastName, username, email, password } = req.body;
+  try {
+    const { firstName, lastName, username, email, password } = req.body;
 
-        if (!firstName || !lastName || !username || !email || !password) {
-            return res.status(400).json({ message: 'Vui lòng điền đầy đủ thông tin.' });
-        }
+    console.log('Register payload:', { firstName, lastName, username, email });
 
-        const existingUser = await User.findOne({
-            $or: [{ username: username.toLowerCase() }, { email: email.toLowerCase() }],
-        });
-        if (existingUser) {
-            const field = existingUser.username === username.toLowerCase() ? 'username' : 'email';
-            return res.status(409).json({ message: `${field === 'username' ? 'Username' : 'Email'} đã được sử dụng.`, field });
-        }
-
-        const user = await User.create({ firstName, lastName, username, email, password });
-        const token = signToken(String(user._id));
-
-        return res.status(201).json({ user, token });
-    } catch (err) {
-        return res.status(500).json({ message: 'Lỗi đăng ký tài khoản.' });
+    if (!firstName || !lastName || !username || !email || !password) {
+      return res.status(400).json({ message: 'Vui lòng điền đầy đủ thông tin.' });
     }
+
+    const existingUser = await User.findOne({
+      $or: [{ username: username.toLowerCase() }, { email: email.toLowerCase() }],
+    });
+    if (existingUser) {
+      const field = existingUser.username === username.toLowerCase() ? 'username' : 'email';
+      return res.status(409).json({ message: `${field === 'username' ? 'Username' : 'Email'} đã được sử dụng.`, field });
+    }
+
+    const user = await User.create({ firstName, lastName, username, email, password });
+    console.log('User created:', user._id);
+    
+    const token = signToken(String(user._id));
+    return res.status(201).json({ user, token });
+  } catch (err) {
+    console.error('Register error details:', err);
+    return res.status(500).json({ message: 'Lỗi đăng ký tài khoản.' });
+  }
 }
 
 // POST /api/auth/login

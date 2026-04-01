@@ -1,0 +1,151 @@
+.calendar {
+    background: var(--color-surface);
+    border: 0.5px solid var(--color-border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    width: 100%;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+}
+
+.monthLabel {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--color-text);
+}
+
+.navBtn {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    border: 0.5px solid var(--color-border);
+    background: var(--color-surface);
+    color: var(--color-text);
+    cursor: pointer;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background .15s;
+    font-family: var(--font-body);
+}
+
+.navBtn:hover:not(:disabled) {
+    background: var(--color-surface-alt);
+}
+
+.navBtn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 3px;
+}
+
+.dow {
+    font-size: 11px;
+    color: var(--color-text-secondary);
+    text-align: center;
+    padding: 3px 0 6px;
+}
+
+.day {
+    aspect-ratio: 1;
+    border-radius: 6px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all .15s;
+    color: var(--color-text);
+    background: transparent;
+    font-family: var(--font-body);
+    width: 100%;
+}
+
+.day:hover:not(:disabled) {
+    background: var(--color-surface-alt);
+}
+
+.day:disabled {
+    opacity: 0.35;
+    cursor: default;
+}
+
+/* Status colors */
+.status_ok {
+    background: #E1F5EE;
+    color: #085041;
+    font-weight: 500;
+}
+
+.status_ok:hover:not(:disabled) {
+    background: #9FE1CB;
+}
+
+.status_over {
+    background: #fef2f2;
+    color: #c0392b;
+    font-weight: 500;
+}
+
+.status_over:hover:not(:disabled) {
+    background: #F7C1C1;
+}
+
+.status_none {
+    background: var(--color-surface-alt);
+    color: var(--color-text-secondary);
+}
+
+.status_future {
+    color: var(--color-text-secondary);
+    opacity: 0.35;
+}
+
+/* Today ring */
+.today {
+    outline: 2px solid #0f6e56;
+    outline-offset: -2px;
+}
+
+/* Selected ring */
+.selected {
+    outline: 2px solid #0f6e56;
+    outline-offset: -2px;
+    font-weight: 500;
+}
+
+/* Legend */
+.legend {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 0.5px solid var(--color-border);
+}
+
+.legendItem {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--color-text-secondary);
+}
+
+.legendDot {
+    width: 10px;
+    height: 10px;
+    border-radius: 3px;
+}

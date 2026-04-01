@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useLogWeight, useWeightHistory } from '../../hooks/use-dashboard';
+import { useTranslation } from 'react-i18next';
 import type { WeightLog } from '../../types/dashboard-types';
 import styles from './weight-card.module.css';
 
@@ -10,6 +11,7 @@ function dayLabel(isoDate: string) {
 }
 
 const WeightCard: React.FC = () => {
+    const { t } = useTranslation();
     const [inputVal, setInputVal] = useState('');
     const { data: history = [] } = useWeightHistory(7);
     const logWeight = useLogWeight();
@@ -34,7 +36,7 @@ const WeightCard: React.FC = () => {
             {/* Input row */}
             <div className={styles.inputRow}>
                 <div className={styles.inputWrap}>
-                    <div className={styles.inputLabel}>Cân nặng hôm nay (kg)</div>
+                    <div className={styles.inputLabel}>{t('components.dailyWeight')}</div>
                     <input
                         type="number"
                         className={styles.input}
@@ -52,18 +54,18 @@ const WeightCard: React.FC = () => {
                     onClick={handleSave}
                     disabled={logWeight.isPending}
                 >
-                    {logWeight.isPending ? '...' : 'Lưu'}
+                    {logWeight.isPending ? '...' : t('components.save')}
                 </button>
             </div>
 
             {logWeight.isSuccess && (
-                <p className={styles.successMsg}>✓ Đã lưu cân nặng!</p>
+                <p className={styles.successMsg}>{t('components.saved')}</p>
             )}
 
             {/* Mini bar chart */}
             {history.length > 0 && (
                 <div className={styles.chart}>
-                    <div className={styles.chartLabel}>7 ngày qua</div>
+                    <div className={styles.chartLabel}>{t('components.lastDays')}</div>
                     <div className={styles.bars}>
                         {history.map((log: WeightLog, i) => (
                             <div key={log.date} className={styles.barCol}>

@@ -50,7 +50,7 @@ const BasicInfoPage: React.FC = () => {
         if (valid) setCurrentStep((s) => Math.min(s + 1, STEPS.length - 1));
     };
 
-    const goBack = () => setCurrentStep((s) => Math.max(s - 1, 0));
+    const goBack = () => setCurrentStep((s) => Math.max(s - 1, 0)); 
 
     const onSubmit = (data: OnboardingForm) => {
         const plan = calcNutritionPlan(

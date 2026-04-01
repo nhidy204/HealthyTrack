@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './calorie-donut.module.css';
 
 interface CalorieDonutProps {
@@ -10,6 +11,7 @@ const RADIUS = 52;
 const CIRC = 2 * Math.PI * RADIUS;
 
 const CalorieDonut: React.FC<CalorieDonutProps> = ({ consumed, target }) => {
+    const { t } = useTranslation();
     const pct = target > 0 ? Math.min(consumed / target, 1) : 0;
     const offset = CIRC * (1 - pct);
     //   const offset = isNaN(pct) ? CIRC : CIRC * (1 - pct);
@@ -40,16 +42,16 @@ const CalorieDonut: React.FC<CalorieDonutProps> = ({ consumed, target }) => {
                         <div className={styles.donutVal} style={{ color: strokeColor }}>
                             {Math.round(pct * 100)}%
                         </div>
-                        <div className={styles.donutSub}>hoàn thành</div>
+                        <div className={styles.donutSub}>{t('dashboard.completed')}</div>
                     </div>
                 </div>
 
                 {/* Legend */}
                 <div className={styles.legend}>
                     {[
-                        { color: strokeColor, label: 'Đã nạp', val: consumed.toLocaleString() + ' kcal' },
-                        { color: '#E1F5EE', label: 'Còn lại', val: remaining.toLocaleString() + ' kcal' },
-                        { color: '#5DCAA5', label: 'Mục tiêu', val: target.toLocaleString() + ' kcal' },
+                        { color: strokeColor, label: t('dashboard.consumed'), val: consumed.toLocaleString() + ' ' + t('common.kcal') },
+                        { color: '#E1F5EE', label: t('dashboard.remaining'), val: remaining.toLocaleString() + ' ' + t('common.kcal') },
+                        { color: '#5DCAA5', label: t('dashboard.target'), val: target.toLocaleString() + ' ' + t('common.kcal') },
                     ].map((item) => (
                         <div key={item.label} className={styles.legendItem}>
                             <div className={styles.legendDot} style={{ background: item.color }} />
@@ -63,7 +65,7 @@ const CalorieDonut: React.FC<CalorieDonutProps> = ({ consumed, target }) => {
             {/* Over-target warning */}
             {isOver && (
                 <div className={styles.warningBanner}>
-                    ⚠ Bạn đã vượt mục tiêu {(consumed - target).toLocaleString()} kcal hôm nay!
+                    ⚠ {t('dashboard.overWarning', { amount: (consumed - target).toLocaleString() })}
                 </div>
             )}
         </div>

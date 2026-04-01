@@ -52,3 +52,33 @@ export async function deleteEntry(req: AuthRequest, res: Response) {
         return res.status(500).json({ message: 'Lỗi xóa món ăn.' });
     }
 }
+
+// GET /api/diary/monthly?year=2026&month=3
+export async function getMonthlyCalories(req: AuthRequest, res: Response) {
+  try {
+    const year  = parseInt(req.query.year as string);
+    const month = parseInt(req.query.month as string);
+
+    if (isNaN(year) || isNaN(month)) {
+      return res.status(400).json({ message: 'year và month không hợp lệ.' });
+    }
+
+    const monthStr = String(month).padStart(2, '0');
+
+    const entries = await FoodEntry.find({
+      user: req.userId,
+      date: { $regex: `^${year}-${monthStr}` }
+    });
+
+    const result: Record<string, number> = {};
+
+    for (const e of entries) {
+      result[e.date] = (result[e.date] ?? 0) + e.calories;
+    }
+
+    return res.json(result);
+
+  } catch {
+    return res.status(500).json({ message: 'Lỗi lấy dữ liệu tháng.' });
+  }
+}

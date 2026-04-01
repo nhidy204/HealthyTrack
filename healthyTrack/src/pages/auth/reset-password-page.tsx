@@ -6,10 +6,12 @@ import Input from '../../components/ui/input';
 import Button from '../../components/ui/button';
 import PasswordStrength from '../../components/ui/password-strength';
 import { useResetPassword } from '../../hooks/use-auth';
+import { useTranslation } from 'react-i18next';
 import type { ResetPasswordForm } from '../../types/auth-types';
 import styles from './Auth.module.css';
 
 const ResetPasswordPage: React.FC = () => {
+    const { t } = useTranslation();
     const [searchParams] = useSearchParams();
     const token = searchParams.get('token') ?? '';
 
@@ -32,10 +34,10 @@ const ResetPasswordPage: React.FC = () => {
             <AuthLayout>
                 <div className={styles.card}>
                     <div className={styles.alertError}>
-                        Link đặt lại mật khẩu không hợp lệ hoặc đã hết hạn.
+                        {t('auth.linkExpired')}
                     </div>
                     <Link to="/forgot-password" className={styles.switchLink}>
-                        Yêu cầu link mới
+                        {t('auth.requestNewLink')}
                     </Link>
                 </div>
             </AuthLayout>
@@ -46,51 +48,51 @@ const ResetPasswordPage: React.FC = () => {
         <AuthLayout>
             <div className={styles.card}>
                 <Link to="/login" className={styles.backLink}>
-                    ← Quay lại đăng nhập
+                    {t('auth.backToLogin')}
                 </Link>
 
-                <h1 className={styles.title}>Đặt mật khẩu mới</h1>
+                <h1 className={styles.title}>{t('auth.resetPasswordTitle')}</h1>
                 <p className={styles.subtitle}>
-                    Nhập mật khẩu mới cho tài khoản của bạn.
+                    {t('auth.resetPasswordDesc')}
                 </p>
 
                 {resetMutation.isError && (
                     <div className={styles.alertError}>
-                        {(resetMutation.error as Error)?.message ?? 'Có lỗi xảy ra.'}
+                        {(resetMutation.error as Error)?.message ?? t('auth.generalError')}
                     </div>
                 )}
 
                 {resetMutation.isSuccess && (
                     <div className={styles.alertSuccess}>
-                        ✓ Mật khẩu đã được cập nhật. Đang chuyển sang đăng nhập...
+                        {t('auth.passwordUpdated')}
                     </div>
                 )}
 
                 <form onSubmit={handleSubmit(onSubmit)} noValidate>
                     <div>
                         <Input
-                            label="Mật khẩu mới"
+                            label={t('auth.newPassword')}
                             type="password"
                             placeholder="Tối thiểu 8 ký tự"
                             autoComplete="new-password"
                             error={errors.password?.message}
                             {...register('password', {
-                                required: 'Vui lòng nhập mật khẩu mới.',
-                                minLength: { value: 8, message: 'Mật khẩu cần ít nhất 8 ký tự.' },
+                                required: t('validation.passwordRequired'),
+                                minLength: { value: 8, message: t('validation.passwordMin') },
                             })}
                         />
                         <PasswordStrength password={password} />
                     </div>
 
                     <Input
-                        label="Xác nhận mật khẩu mới"
+                        label={t('auth.confirmNewPassword')}
                         type="password"
-                        placeholder="Nhập lại mật khẩu mới"
+                        placeholder={t('auth.confirmNewPassword')}
                         autoComplete="new-password"
                         error={errors.confirmPassword?.message}
                         {...register('confirmPassword', {
-                            required: 'Vui lòng xác nhận mật khẩu.',
-                            validate: (val) => val === password || 'Mật khẩu không khớp.',
+                            required: t('validation.confirmPasswordRequired'),
+                            validate: (val) => val === password || t('validation.passwordMismatch'),
                         })}
                     />
 
@@ -100,7 +102,7 @@ const ResetPasswordPage: React.FC = () => {
                         loading={resetMutation.isPending}
                         disabled={resetMutation.isSuccess}
                     >
-                        Cập nhật mật khẩu
+                        {t('auth.password')}
                     </Button>
                 </form>
             </div>

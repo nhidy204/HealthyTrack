@@ -2,6 +2,15 @@
   display: flex;
   min-height: 100vh;
   background: var(--color-bg);
+  position: relative;
+}
+
+/* ── Language switcher ── */
+.headerRight {
+  position: absolute;
+  top: 1.5rem;
+  right: 2rem;
+  z-index: 10;
 }
 
 /* ── Left panel ── */
@@ -129,5 +138,10 @@
 
   .right {
     padding: 2rem 1.5rem;
+  }
+
+  .headerRight {
+    top: 1rem;
+    right: 1rem;
   }
 }
