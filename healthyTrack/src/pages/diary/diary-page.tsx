@@ -26,7 +26,7 @@ const DiaryPage: React.FC = () => {
     const [currentDate, setCurrentDate] = useState(new Date());
     const [viewDate, setViewDate] = useState({
         year: new Date().getFullYear(),
-        month: new Date().getMonth(), // 0-based
+        month: new Date().getMonth(), // 0-based45
     });
     const [modalMeal, setModalMeal] = useState<MealType | null>(null);
 

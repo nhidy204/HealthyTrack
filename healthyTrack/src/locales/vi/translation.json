@@ -40,19 +40,17 @@
     "satisfied": "Hài lòng",
     "rating": "Đánh giá"
   },
-
   "validation": {
-  "usernameRequired": "Vui lòng nhập tên đăng nhập.",
-  "usernameMin": "Username tối thiểu 3 ký tự.",
-  "passwordRequired": "Vui lòng nhập mật khẩu.",
-  "emailInvalid": "Email không hợp lệ.",
-  "firstNameRequired": "Nhập tên của bạn.",
-  "lastNameRequired": "Nhập họ của bạn.",
-  "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu.",
-  "passwordMin": "Mật khẩu cần ít nhất 8 ký tự.",
-  "passwordMismatch": "Mật khẩu không khớp."
+    "usernameRequired": "Vui lòng nhập tên đăng nhập.",
+    "usernameMin": "Username tối thiểu 3 ký tự.",
+    "passwordRequired": "Vui lòng nhập mật khẩu.",
+    "emailInvalid": "Email không hợp lệ.",
+    "firstNameRequired": "Nhập tên của bạn.",
+    "lastNameRequired": "Nhập họ của bạn.",
+    "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu.",
+    "passwordMin": "Mật khẩu cần ít nhất 8 ký tự.",
+    "passwordMismatch": "Mật khẩu không khớp."
   },
-
   "onboarding": {
     "step": "Bước {{current}} / {{total}}",
     "basicInfo": "Thông tin cơ bản",
@@ -132,7 +130,19 @@
     "avgCalories": "TB calo / ngày",
     "weightChart": "Cân nặng theo ngày (kg)",
     "calorieChart": "Lượng calo tiêu thụ theo ngày (kcal)",
-    "loading": "Đang tải..."
+    "loading": "Đang tải...",
+    "streak": "Chuỗi",
+    "diaryLogging": "ghi nhật ký",
+    "consecutiveDays": "ngày liên tiếp",
+    "personalRecord": "Kỳ lực",
+    "days": "ngày",
+    "goalAchieved": "Đạt mục tiêu",
+    "daysInWeek": "ngày trong tuần",
+    "daysReachedGoal": "ngày đạt mục tiêu calo",
+    "frequentFood": "Món ăn thường xuyên nhất",
+    "times": "lần",
+    "compareWithPrevious": "So sánh với tuần trước",
+    "difference": "Khác biệt"
   },
   "components": {
     "water": "Uống nước",

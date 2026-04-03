@@ -40,19 +40,17 @@
     "satisfied": "Satisfied",
     "rating": "Rating"
   },
-
   "validation": {
-  "usernameRequired": "Please enter your username.",
-  "usernameMin": "Username must be at least 3 characters.",
-  "passwordRequired": "Please enter your password.",
-  "emailInvalid": "Invalid email address.",
-  "firstNameRequired": "Please enter your first name.",
-  "lastNameRequired": "Please enter your last name.",
-  "confirmPasswordRequired": "Please confirm your password.",
-  "passwordMin": "Password must be at least 8 characters.",
-  "passwordMismatch": "Passwords do not match."
+    "usernameRequired": "Please enter your username.",
+    "usernameMin": "Username must be at least 3 characters.",
+    "passwordRequired": "Please enter your password.",
+    "emailInvalid": "Invalid email address.",
+    "firstNameRequired": "Please enter your first name.",
+    "lastNameRequired": "Please enter your last name.",
+    "confirmPasswordRequired": "Please confirm your password.",
+    "passwordMin": "Password must be at least 8 characters.",
+    "passwordMismatch": "Passwords do not match."
   },
-  
   "onboarding": {
     "step": "Step {{current}} / {{total}}",
     "basicInfo": "Basic Information",
@@ -132,7 +130,19 @@
     "avgCalories": "Avg Calories / Day",
     "weightChart": "Weight by Day (kg)",
     "calorieChart": "Daily Calorie Intake (kcal)",
-    "loading": "Loading..."
+    "loading": "Loading...",
+    "streak": "Streak",
+    "diaryLogging": "Diary Logging",
+    "consecutiveDays": "consecutive days",
+    "personalRecord": "Personal Record",
+    "days": "days",
+    "goalAchieved": "Goal Achieved",
+    "daysInWeek": "days in week",
+    "daysReachedGoal": "days reached calorie goal",
+    "frequentFood": "Most Frequent Food",
+    "times": "times",
+    "compareWithPrevious": "Compare with Previous Week",
+    "difference": "Difference"
   },
   "components": {
     "water": "Water",
