@@ -19,7 +19,7 @@ const WeightLineChart: React.FC<WeightLineChartProps> = ({ data }) => {
     }));
 
     if (!data.length) return (
-        <div style={{ padding: '2rem', textAlign: 'center', fontSize: 13, color: 'var(--color-text-secondary)' }}>
+        <div className="emptyState">
             Chưa có dữ liệu cân nặng tuần này.
         </div>
     );

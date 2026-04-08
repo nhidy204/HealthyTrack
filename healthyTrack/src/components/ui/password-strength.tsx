@@ -40,7 +40,7 @@ const PasswordStrength: React.FC<PasswordStrengthProps> = ({ password }) => {
             <div className={styles.bar}>
                 <div
                     className={styles.fill}
-                    style={{ width: level.width, background: level.color }}
+                    style={{ width: level.width, '--fill-color': level.color } as React.CSSProperties} // react.cssProperties để tránh lỗi khi dùng CSS variable trong inline style
                 />
             </div>
             <span className={styles.label} style={{ color: level.color }}>

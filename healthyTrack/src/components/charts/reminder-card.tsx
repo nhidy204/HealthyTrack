@@ -41,7 +41,10 @@ const ReminderCard: React.FC<ReminderCardProps> = ({ exerciseMinutes = 0 }) => {
                     <div className={styles.reminderLabel}>{t('components.water')}</div>
                     <div className={styles.reminderVal}>{glasses} / {WATER_TARGET} {t('components.glasses')}</div>
                     <div className={styles.progressBar}>
-                        <div className={styles.progressFill} style={{ width: waterPct + '%', background: '#378ADD' }} />
+                        <div 
+                            className={styles.progressFill}
+                            style={{ width: waterPct + '%', '--fill-color': '#378ADD' } as React.CSSProperties}
+                        />
                     </div>
                     <button className={styles.addBtn} onClick={addGlass} disabled={glasses >= WATER_TARGET}>
                         {t('components.addMealGlass')}
@@ -54,7 +57,10 @@ const ReminderCard: React.FC<ReminderCardProps> = ({ exerciseMinutes = 0 }) => {
                     <div className={styles.reminderLabel}>{t('components.exercise')}</div>
                     <div className={styles.reminderVal}>{exerciseMinutes} / {EXERCISE_TARGET} {t('components.minutes')}</div>
                     <div className={styles.progressBar}>
-                        <div className={styles.progressFill} style={{ width: exercisePct + '%', background: '#0f6e56' }} />
+                        <div 
+                            className={styles.progressFill}
+                            style={{ width: exercisePct + '%', '--fill-color': '#0f6e56' } as React.CSSProperties}
+                        />
                     </div>
                     <div className={styles.reminderHint}>{t('components.goalPerDay', { target: EXERCISE_TARGET })}</div>
                 </div>

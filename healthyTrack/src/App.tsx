@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ProtectedRoute from '@components/layout/protected-route';
 import GuestRoute from '@components/layout/guest-route';
 import '@styles/globals.css';
+import '@/index.css';
 
 //lazy-loaded pages
 const LoginPage = lazy(() => import('@pages/auth/login-page'));
@@ -28,8 +29,8 @@ const queryClient = new QueryClient({
 });
 
 const Fallback = () => (
-  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', height: '100vh' }}>
-    <span style={{ color: 'var(--color-text-secondary)', fontSize: 14 }}>Đang tải...</span>
+  <div className="fallback">
+    <span className="fallbackText">Đang tải...</span>
   </div>
 );
 

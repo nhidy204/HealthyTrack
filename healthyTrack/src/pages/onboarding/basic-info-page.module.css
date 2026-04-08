@@ -1,3 +1,9 @@
+.languageSwitcher {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
 .root {
   max-width: 560px;
   margin: 0 auto;

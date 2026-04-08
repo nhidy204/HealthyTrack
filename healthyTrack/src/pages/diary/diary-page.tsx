@@ -92,7 +92,7 @@ const DiaryPage: React.FC = () => {
                             <div className={styles.caloBarRow}>
                                 <span>
                                     {t('diary.consumed')}{' '}
-                                    <strong style={{ color: isOver ? '#c0392b' : '#0f6e56' }}>
+                                    <strong className={isOver ? styles.consumedOver : styles.consumedNormal}>
                                         {totalCalories.toLocaleString()}
                                     </strong>{' '}
                                     kcal
@@ -102,7 +102,7 @@ const DiaryPage: React.FC = () => {
                             <div className={styles.bar}>
                                 <div
                                     className={`${styles.barFill} ${isOver ? styles.barOver : ''}`}
-                                    style={{ width: pct + '%' }}
+                                    style={{ '--fill-width': pct + '%' } as React.CSSProperties}
                                 />
                             </div>
                             {isOver && (
@@ -129,7 +129,7 @@ const DiaryPage: React.FC = () => {
                     {totalCalories > 0 && (
                         <div className={styles.dailyTotal}>
                             <span>{t('diary.dailyTotal')}</span>
-                            <span style={{ color: isOver ? '#c0392b' : '#0f6e56' }}>
+                            <span className={isOver ? styles.dailyTotalOver : styles.dailyTotalNormal}>
                                 {totalCalories.toLocaleString()} kcal
                             </span>
                         </div>

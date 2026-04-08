@@ -70,9 +70,9 @@ const WeightCard: React.FC = () => {
                         {history.map((log: WeightLog, i) => (
                             <div key={log.date} className={styles.barCol}>
                                 <div className={styles.barWrap} title={`${log.weight} kg`}>
-                                    <div
+                                <div
                                         className={`${styles.bar} ${i === history.length - 1 ? styles.barCurrent : ''}`}
-                                        style={{ height: barHeight(log.weight) + 'px' }}
+                                        style={{ '--bar-height': barHeight(log.weight) + 'px' } as React.CSSProperties}
                                     />
                                 </div>
                                 <div className={styles.barDate}>{dayLabel(log.date)}</div>

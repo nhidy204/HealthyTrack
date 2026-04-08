@@ -1,3 +1,15 @@
+.fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.fallbackText {
+  color: var(--color-text-secondary);
+  font-size: 14px;
+}
+
 /* .counter {
   font-size: 16px;
   padding: 5px 10px;

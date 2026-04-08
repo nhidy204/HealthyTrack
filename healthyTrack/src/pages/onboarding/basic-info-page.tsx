@@ -76,7 +76,7 @@ const BasicInfoPage: React.FC = () => {
     return (
         <FormProvider {...methods}>
             <div className={styles.root}>
-                <div style={{ position: 'absolute', top: 20, right: 20 }}>
+                <div className={styles.languageSwitcher}>
                     <LanguageSwitcher />
                 </div>
 

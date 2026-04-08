@@ -101,6 +101,7 @@
   width: 100%;
   border-radius: 3px 3px 0 0;
   background: #E1F5EE;
+  height: var(--bar-height, 48px);
   transition: height 0.4s ease;
 }
 

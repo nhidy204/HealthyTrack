@@ -35,7 +35,7 @@ const CalorieDonut: React.FC<CalorieDonutProps> = ({ consumed, target }) => {
                             strokeDashoffset={offset}
                             strokeLinecap="round"
                             transform="rotate(-90 70 70)"
-                            style={{ transition: 'stroke-dashoffset 0.5s ease, stroke 0.3s' }}
+                            className="donutArc"
                         />
                     </svg>
                     <div className={styles.donutLabel}>

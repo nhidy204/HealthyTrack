@@ -60,7 +60,7 @@ const MealSection: React.FC<MealSectionProps> = ({ meal, onAdd, onDelete }) => {
                             <span className={styles.colName}>{t('diary.foodName')}</span>
                             <span className={styles.colAmount}>{t('diary.portion')}</span>
                             <span className={styles.colKcal}>{t('diary.calories')}</span>
-                            <span style={{ width: 28 }} />
+                            <span className={styles.colDeleteBtn} />
                         </div>
 
                         {meal.foods.map((food) => (

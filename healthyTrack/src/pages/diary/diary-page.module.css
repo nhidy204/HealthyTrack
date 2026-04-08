@@ -92,11 +92,22 @@
   height: 100%;
   border-radius: 4px;
   background: #0f6e56;
+  width: var(--fill-width, 0%);
   transition: width 0.4s ease;
 }
 
 .barOver {
   background: #E24B4A;
+}
+
+.consumedNormal {
+  color: #0f6e56;
+  font-weight: 600;
+}
+
+.consumedOver {
+  color: #c0392b;
+  font-weight: 600;
 }
 
 .overWarning {
@@ -128,4 +139,12 @@
   font-size: 14px;
   font-weight: 500;
   color: var(--color-text);
+}
+
+.dailyTotalNormal {
+  color: #0f6e56;
+}
+
+.dailyTotalOver {
+  color: #c0392b;
 }

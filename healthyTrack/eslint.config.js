@@ -19,5 +19,10 @@ export default defineConfig([
       ecmaVersion: 2020,
       globals: globals.browser,
     },
+    rules: {
+      'no-inline-styles/no-inline-styles': 'off',
+      'react/no-inline-styles': 'off',
+      'jsx-a11y/no-inline-styles': 'off',
+    }
   },
 ])

@@ -22,7 +22,7 @@ const CalorieBarChart: React.FC<CalorieBarChartProps> = ({ data, target }) => {
     }));
 
     if (!data.length) return (
-        <div style={{ padding: '2rem', textAlign: 'center', fontSize: 13, color: 'var(--color-text-secondary)' }}>
+        <div className="emptyState">
             Chưa có dữ liệu calo tuần này.
         </div>
     );
