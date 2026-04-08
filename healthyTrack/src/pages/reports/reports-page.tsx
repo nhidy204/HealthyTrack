@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import AppLayout from '../../components/layout/app-layout';
-import WeightLineChart from '../../components/charts/weight-line-chart';
-import CalorieBarChart from '../../components/charts/calorie-bar-chart';
-import ReportsSidebar from '../../components/reports/reports-sidebar';
-import { useWeeklyReport, useSidebarStats } from '../../hooks/use-reports';
+import AppLayout from '@components/layout/app-layout';
+import WeightLineChart from '@components/charts/weight-line-chart';
+import CalorieBarChart from '@components/charts/calorie-bar-chart';
+import ReportsSidebar from '@components/reports/reports-sidebar';
+import { useWeeklyReport, useSidebarStats } from '@hooks/use-reports';
 import { useTranslation } from 'react-i18next';
 import styles from './reports-page.module.css';
 

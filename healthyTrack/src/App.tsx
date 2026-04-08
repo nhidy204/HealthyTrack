@@ -1,22 +1,22 @@
 import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import ProtectedRoute from './components/layout/protected-route';
-import GuestRoute from './components/layout/guest-route';
-import './styles/globals.css';
+import ProtectedRoute from '@components/layout/protected-route';
+import GuestRoute from '@components/layout/guest-route';
+import '@styles/globals.css';
 
 //lazy-loaded pages
-const LoginPage = lazy(() => import('./pages/auth/login-page'));
-const RegisterPage = lazy(() => import('./pages/auth/register-page'));
-const ForgotPasswordPage = lazy(() => import('./pages/auth/forgot-password-page'));
-const ResetPasswordPage = lazy(() => import('./pages/auth/reset-password-page'));
+const LoginPage = lazy(() => import('@pages/auth/login-page'));
+const RegisterPage = lazy(() => import('@pages/auth/register-page'));
+const ForgotPasswordPage = lazy(() => import('@pages/auth/forgot-password-page'));
+const ResetPasswordPage = lazy(() => import('@pages/auth/reset-password-page'));
 
 //placeholder pages 
-const OnboardingPage = lazy(() => import('./pages/onboarding/basic-info-page'));
-const DashboardPage = lazy(() => import('./pages/dashboard/dashboard-page'));
-const DiaryPage = lazy(() => import('./pages/diary/diary-page'));
-const ReportsPage = lazy(() => import('./pages/reports/reports-page'));
-const ProfilePage = lazy(() => import('./pages/profile/profile-page'));
+const OnboardingPage = lazy(() => import('@pages/onboarding/basic-info-page'));
+const DashboardPage = lazy(() => import('@pages/dashboard/dashboard-page'));
+const DiaryPage = lazy(() => import('@pages/diary/diary-page'));
+const ReportsPage = lazy(() => import('@pages/reports/reports-page'));
+const ProfilePage = lazy(() => import('@pages/profile/profile-page'));
 
 const queryClient = new QueryClient({
   defaultOptions: {

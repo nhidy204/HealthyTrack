@@ -1,11 +1,11 @@
 import React from 'react';
-import AppLayout from '../../components/layout/app-layout';
-import CalorieDonut from '../../components/charts/calorie-donut';
-import WeightCard from '../../components/charts/weight-card';
-import ReminderCard from '../../components/charts/reminder-card';
-import { useDailySummary } from '../../hooks/use-dashboard';
-import { useProfile } from '../../hooks/use-onboarding';
-import { useAuthStore } from '../../store/auth-store';
+import AppLayout from '@components/layout/app-layout';
+import CalorieDonut from '@components/charts/calorie-donut';
+import WeightCard from '@components/charts/weight-card';
+import ReminderCard from '@components/charts/reminder-card';
+import { useDailySummary } from '@hooks/use-dashboard';
+import { useProfile } from '@hooks/use-onboarding';
+import { useAuthStore } from '@store/auth-store';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import styles from './dashboard-page.module.css';

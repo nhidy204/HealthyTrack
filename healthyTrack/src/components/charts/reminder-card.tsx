@@ -1,5 +1,5 @@
 import React from 'react';
-import { useWaterLog, useLogWater } from '../../hooks/use-dashboard';
+import { useWaterLog, useLogWater } from '@hooks/use-dashboard';
 import { useTranslation } from 'react-i18next';
 import styles from './reminder-card.module.css';
 

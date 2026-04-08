@@ -1,11 +1,11 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import AuthLayout from '../../components/layout/auth-layout';
-import Input from '../../components/ui/input';
-import Button from '../../components/ui/button';
-import { useLogin } from '../../hooks/use-auth';
-import type { LoginForm } from '../../types/auth-types';
+import AuthLayout from '@components/layout/auth-layout';
+import Input from '@ui/input';
+import Button from '@ui/button';
+import { useLogin } from '@hooks/use-auth';
+import type { LoginForm } from '@typing/auth-types';
 import { useTranslation } from 'react-i18next';
 import styles from './Auth.module.css';
 

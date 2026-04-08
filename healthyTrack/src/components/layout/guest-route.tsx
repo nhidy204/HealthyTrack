@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuthStore } from '../../store/auth-store';
-import { useProfile } from '../../hooks/use-onboarding';
+import { useAuthStore } from '@store/auth-store';
+import { useProfile } from '@hooks/use-onboarding';
 
 //ktra t.thái đnhap
 const GuestRoute: React.FC = () => {

@@ -1,13 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useSearchParams, Link } from 'react-router-dom';
-import AuthLayout from '../../components/layout/auth-layout';
-import Input from '../../components/ui/input';
-import Button from '../../components/ui/button';
-import PasswordStrength from '../../components/ui/password-strength';
-import { useResetPassword } from '../../hooks/use-auth';
+import AuthLayout from '@components/layout/auth-layout';
+import Input from '@ui/input';
+import Button from '@ui/button';
+import PasswordStrength from '@ui/password-strength';
+import { useResetPassword } from '@hooks/use-auth';
 import { useTranslation } from 'react-i18next';
-import type { ResetPasswordForm } from '../../types/auth-types';
+import type { ResetPasswordForm } from '@typing/auth-types';
 import styles from './Auth.module.css';
 
 const ResetPasswordPage: React.FC = () => {

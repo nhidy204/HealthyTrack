@@ -1,7 +1,7 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { OnboardingForm } from '../../../types/onboarding-types';
-import { ACTIVITY_OPTIONS } from '../../../types/onboarding-types';
+import type { OnboardingForm } from '@typing/onboarding-types';
+import { ACTIVITY_OPTIONS } from '@typing/onboarding-types';
 import styles from './steps.module.css';
 
 const ActivityStep: React.FC = () => {

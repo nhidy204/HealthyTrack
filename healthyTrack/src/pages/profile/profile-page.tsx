@@ -1,16 +1,18 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import AppLayout from '../../components/layout/app-layout';
-import Input from '../../components/ui/input';
-import Button from '../../components/ui/button';
-import { useProfile } from '../../hooks/use-onboarding';
-import { useUpdateUserProfile } from '../../hooks/use-profile';
-import { useAuthStore } from '../../store/auth-store';
-import { useThemeStore } from '../../store/theme-store';
+import AppLayout from '@components/layout/app-layout';
+import Input from '@ui/input';
+import Button from '@ui/button';
+import StatsPanel from '@components/charts/stats-panel';
+import { useProfile } from '@hooks/use-onboarding';
+import { useUpdateUserProfile } from '@hooks/use-profile';
+import { useAuthStore } from '@store/auth-store';
+import { useThemeStore } from '@store/theme-store';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
-import { ACTIVITY_OPTIONS, GOAL_OPTIONS } from '../../types/onboarding-types';
-import type { UpdateProfilePayload } from '../../types/profile-types';
+import { ACTIVITY_OPTIONS, GOAL_OPTIONS, type ActivityLevel } from '@typing/onboarding-types';
+import { calcBMR, calcTDEE } from '@utils/nutrition';
+import type { UpdateProfilePayload } from '@typing/profile-types';
 import styles from './profile-page.module.css';
 
 const ProfilePage: React.FC = () => {
@@ -20,6 +22,26 @@ const ProfilePage: React.FC = () => {
     const { data: profile, isLoading } = useProfile();
     const updateProfile = useUpdateUserProfile();
     const navigate = useNavigate();
+
+    const getGoalLabel = (goal: string) => {
+        const labelMap: Record<string, string> = {
+            lose: 'onboarding.lose',
+            gain: 'onboarding.gain',
+            maintain: 'onboarding.maintain',
+        };
+        return t(labelMap[goal] || 'onboarding.maintain');
+    };
+
+    const getActivityLabel = (level: number) => {
+        const labelMap: Record<number, string> = {
+            1.2: 'onboarding.inActive',
+            1.375: 'onboarding.light',
+            1.55: 'onboarding.moderate',
+            1.725: 'onboarding.active',
+            1.9: 'onboarding.veryActive',
+        };
+        return t(labelMap[level] || 'onboarding.light');
+    };
 
     const { register, handleSubmit, formState: { errors, isDirty } } = useForm<UpdateProfilePayload>({
         values: profile && user ? {
@@ -31,7 +53,9 @@ const ProfilePage: React.FC = () => {
             height: profile.height,
             weight: profile.weight,
             goal: profile.goal,
-            activityLevel: profile.activityLevel,
+            activityLevel: typeof profile.activityLevel === 'string'
+                ? Number(profile.activityLevel) as ActivityLevel
+                : profile.activityLevel,
         } : undefined,
     });
 
@@ -48,8 +72,16 @@ const ProfilePage: React.FC = () => {
         ? (user.firstName[0] + user.lastName[0]).toUpperCase()
         : '?';
 
-    const goalLabel = profile?.goal === 'lose' ? t('onboarding.lose')
-        : profile?.goal === 'gain' ? t('onboarding.gain') : t('onboarding.maintain');
+    const displayGoalLabel = profile ? getGoalLabel(profile.goal) : '';
+
+    // Calculate BMR and TDEE cho panel
+    const bmr = profile ? calcBMR({
+        gender: profile.gender,
+        weight: profile.weight,
+        height: profile.height,
+        age: profile.age,
+    }) : 0;
+    const tdee = profile ? calcTDEE(bmr, profile.activityLevel) : 0;
 
     if (isLoading) {
         return <AppLayout title={t('profile.title')}><div className={styles.loading}>{t('common.loading')}</div></AppLayout>;
@@ -58,114 +90,125 @@ const ProfilePage: React.FC = () => {
     return (
         <AppLayout title={t('profile.title')}>
             <div className={styles.root}>
-                <form onSubmit={handleSubmit(onSubmit)} noValidate>
-                    <div className={styles.card}>
-                        <div className={styles.profileHeader}>
-                            <div className={styles.avatar}>{initials}</div>
-                            <div>
-                                <div className={styles.profileName}>{user?.lastName} {user?.firstName}</div>
-                                <div className={styles.profileSub}>
-                                    {t('profile.goal')} {goalLabel} · {profile?.targetCalories?.toLocaleString()} {t('profile.targetCalories')}
+                <div className={styles.container}>
+                    <form onSubmit={handleSubmit(onSubmit)} noValidate className={styles.formSection}>
+                        <div className={styles.card}>
+                            <div className={styles.profileHeader}>
+                                <div className={styles.avatar}>{initials}</div>
+                                <div>
+                                    <div className={styles.profileName}>{user?.lastName} {user?.firstName}</div>
+                                    <div className={styles.profileSub}>
+                                        {t('profile.goal')} {displayGoalLabel} · {profile?.targetCalories?.toLocaleString()} {t('profile.targetCalories')}
+                                    </div>
                                 </div>
                             </div>
+
+                            {updateProfile.isSuccess && (
+                                <div className={styles.alertSuccess}>✓ {t('profile.saveSuccess')}</div>
+                            )}
+                            {updateProfile.isError && (
+                                <div className={styles.alertError}>
+                                    {(updateProfile.error as Error)?.message ?? t('auth.generalError')}
+                                </div>
+                            )}
+
+                            <div className={styles.sectionTitle}>{t('profile.personalInfo')}</div>
+                            <div className={styles.formGrid}>
+                                <Input label={t('auth.lastName')} error={errors.lastName?.message}
+                                    {...register('lastName', { required: t('validation.lastNameRequired') })} />
+                                <Input label={t('auth.firstName')} error={errors.firstName?.message}
+                                    {...register('firstName', { required: t('validation.firstNameRequired') })} />
+                                <Input label={t('auth.email')} type="email" error={errors.email?.message}
+                                    {...register('email', {
+                                        required: t('validation.usernameRequired'),
+                                        pattern: { value: /^[^@]+@[^@]+\.[^@]+$/, message: t('validation.emailInvalid') },
+                                    })} />
+                                <div>
+                                    <label className={styles.selectLabel}>{t('onboarding.gender')}</label>
+                                    <select className={styles.select} {...register('gender')}>
+                                        <option value="male">{t('onboarding.male')}</option>
+                                        <option value="female">{t('onboarding.female')}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className={styles.sectionTitle}>{t('profile.bodyMetrics')}</div>
+                            <div className={styles.formGrid}>
+                                <Input label={t('onboarding.age')} type="number" suffix={t('common.years')} error={errors.age?.message}
+                                    {...register('age', { required: true, min: 10, max: 100, valueAsNumber: true })} />
+                                <Input label={t('onboarding.height')} type="number" suffix={t('common.cm')} error={errors.height?.message}
+                                    {...register('height', { required: true, min: 100, max: 250, valueAsNumber: true })} />
+                                <Input label={t('onboarding.weight')} type="number" suffix={t('common.kg')} error={errors.weight?.message}
+                                    {...register('weight', { required: true, min: 20, max: 300, valueAsNumber: true })} />
+                            </div>
+
+                            {/*goal*/}
+                            <div className={styles.sectionTitle}>{t('profile.goalActivity')}</div>
+                            <div className={styles.formGrid}>
+                                <div>
+                                    <label className={styles.selectLabel}>{t('onboarding.goal')}</label>
+                                    <select className={styles.select} {...register('goal')}>
+                                        {GOAL_OPTIONS.map(option => (
+                                            <option key={option.value} value={option.value}>{getGoalLabel(option.value)}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div>
+                                    <label className={styles.selectLabel}>{t('onboarding.activity')}</label>
+                                    <select className={styles.select} {...register('activityLevel', { valueAsNumber: true })}>
+                                        {ACTIVITY_OPTIONS.map(option => (
+                                            <option key={option.value} value={option.value}>{getActivityLabel(option.value)}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div className={styles.btnRow}>
+                                <Button type="submit" loading={updateProfile.isPending} disabled={!isDirty}>
+                                    {t('profile.saveChanges')}
+                                </Button>
+                            </div>
                         </div>
 
-                        {/* success / error messages */}
-                        {updateProfile.isSuccess && (
-                            <div className={styles.alertSuccess}>✓ {t('profile.saveSuccess')}</div>
+                        <div className={styles.card}>
+                            <div className={styles.cardTitle}>{t('profile.settings')}</div>
+
+                            <div className={styles.toggleRow}>
+                                <span className={styles.toggleLabel}>{t('profile.darkMode')}</span>
+                                <label className={styles.toggle}>
+                                    <input type="checkbox" checked={isDark} onChange={toggleTheme} />
+                                    <span className={styles.toggleSlider} />
+                                </label>
+                            </div>
+
+                            <div className={`${styles.toggleRow} ${styles.toggleRowLast}`}>
+                                <span className={styles.toggleLabel}>{t('profile.waterReminder')}</span>
+                                <label className={styles.toggle}>
+                                    <input type="checkbox" defaultChecked />
+                                    <span className={styles.toggleSlider} />
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div className={styles.card}>
+                            <div className={styles.cardTitle}>{t('profile.account')}</div>
+                            <button type="button" className={styles.logoutBtn} onClick={handleLogout}>
+                                {t('profile.logout')}
+                            </button>
+                        </div>
+                    </form>
+
+                    <aside className={styles.sidebarSection}>
+                        {profile && (
+                            <StatsPanel
+                                weight={profile.weight}
+                                height={profile.height}
+                                bmr={Math.round(bmr)}
+                                tdee={Math.round(tdee)}
+                            />
                         )}
-                        {updateProfile.isError && (
-                            <div className={styles.alertError}>
-                                {(updateProfile.error as Error)?.message ?? t('auth.generalError')}
-                            </div>
-                        )}
-
-                        <div className={styles.sectionTitle}>{t('profile.personalInfo')}</div>
-                        <div className={styles.formGrid}>
-                            <Input label={t('auth.lastName')} error={errors.lastName?.message}
-                                {...register('lastName', { required: t('validation.lastNameRequired') })} />
-                            <Input label={t('auth.firstName')} error={errors.firstName?.message}
-                                {...register('firstName', { required: t('validation.firstNameRequired') })} />
-                            <Input label={t('auth.email')} type="email" error={errors.email?.message}
-                                {...register('email', {
-                                    required: t('validation.usernameRequired'),
-                                    pattern: { value: /^[^@]+@[^@]+\.[^@]+$/, message: t('validation.emailInvalid') },
-                                })} />
-                            <div>
-                                <label className={styles.selectLabel}>{t('onboarding.gender')}</label>
-                                <select className={styles.select} {...register('gender')}>
-                                    <option value="male">{t('onboarding.male')}</option>
-                                    <option value="female">{t('onboarding.female')}</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className={styles.sectionTitle}>{t('profile.bodyMetrics')}</div>
-                        <div className={styles.formGrid}>
-                            <Input label={t('onboarding.age')} type="number" suffix={t('common.years')} error={errors.age?.message}
-                                {...register('age', { required: true, min: 10, max: 100, valueAsNumber: true })} />
-                            <Input label={t('onboarding.height')} type="number" suffix={t('common.cm')} error={errors.height?.message}
-                                {...register('height', { required: true, min: 100, max: 250, valueAsNumber: true })} />
-                            <Input label={t('onboarding.weight')} type="number" suffix={t('common.kg')} error={errors.weight?.message}
-                                {...register('weight', { required: true, min: 20, max: 300, valueAsNumber: true })} />
-                        </div>
-
-                        {/*goal*/}
-                        <div className={styles.sectionTitle}>{t('profile.goalActivity')}</div>
-                        <div className={styles.formGrid}>
-                            <div>
-                                <label className={styles.selectLabel}>{t('onboarding.goal')}</label>
-                                <select className={styles.select} {...register('goal')}>
-                                    {GOAL_OPTIONS.map(o => (
-                                        <option key={o.value} value={o.value}>{o.label}</option>
-                                    ))}
-                                </select>
-                            </div>
-                            <div>
-                                <label className={styles.selectLabel}>{t('onboarding.activity')}</label>
-                                <select className={styles.select} {...register('activityLevel', { valueAsNumber: true })}>
-                                    {ACTIVITY_OPTIONS.map(o => (
-                                        <option key={o.value} value={o.value}>{o.label}</option>
-                                    ))}
-                                </select>
-                            </div>
-                        </div>
-
-                        <div className={styles.btnRow}>
-                            <Button type="submit" loading={updateProfile.isPending} disabled={!isDirty}>
-                                {t('profile.saveChanges')}
-                            </Button>
-                        </div>
-                    </div>
-
-                    <div className={styles.card}>
-                        <div className={styles.cardTitle}>{t('profile.settings')}</div>
-
-                        <div className={styles.toggleRow}>
-                            <span className={styles.toggleLabel}>{t('profile.darkMode')}</span>
-                            <label className={styles.toggle}>
-                                <input type="checkbox" checked={isDark} onChange={toggleTheme} />
-                                <span className={styles.toggleSlider} />
-                            </label>
-                        </div>
-
-                        <div className={styles.toggleRow} style={{ borderBottom: 'none' }}>
-                            <span className={styles.toggleLabel}>{t('profile.waterReminder')}</span>
-                            <label className={styles.toggle}>
-                                <input type="checkbox" defaultChecked />
-                                <span className={styles.toggleSlider} />
-                            </label>
-                        </div>
-                    </div>
-
-                    {/* Danger zone */}
-                    <div className={styles.card}>
-                        <div className={styles.cardTitle}>{t('profile.account')}</div>
-                        <button type="button" className={styles.logoutBtn} onClick={handleLogout}>
-                            {t('profile.logout')}
-                        </button>
-                    </div>
-                </form>
+                    </aside>
+                </div>
             </div>
         </AppLayout>
     );

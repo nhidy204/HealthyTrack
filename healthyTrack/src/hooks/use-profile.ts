@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '../services/auth-service';
+import api from '@services/auth-service';
 import { PROFILE_KEY } from './use-onboarding';
-import type { UpdateProfilePayload, ChangePasswordPayload } from '../types/profile-types';
+import type { UpdateProfilePayload, ChangePasswordPayload } from '@typing/profile-types';
 
 export function useUpdateUserProfile() {
     const qc = useQueryClient();

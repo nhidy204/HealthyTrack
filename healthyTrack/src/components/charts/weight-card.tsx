@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useLogWeight, useWeightHistory } from '../../hooks/use-dashboard';
+import { useLogWeight, useWeightHistory } from '@hooks/use-dashboard';
 import { useTranslation } from 'react-i18next';
-import type { WeightLog } from '../../types/dashboard-types';
+import type { WeightLog } from '@typing/dashboard-types';
 import styles from './weight-card.module.css';
 
 const DAY_LABELS = ['CN', 'T2', 'T3', 'T4', 'T5', 'T6', 'T7'];

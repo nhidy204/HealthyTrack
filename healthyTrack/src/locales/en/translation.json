@@ -49,7 +49,16 @@
     "lastNameRequired": "Please enter your last name.",
     "confirmPasswordRequired": "Please confirm your password.",
     "passwordMin": "Password must be at least 8 characters.",
-    "passwordMismatch": "Passwords do not match."
+    "passwordMismatch": "Passwords do not match.",
+    "ageRequired": "Please enter your age.",
+    "ageMin": "Minimum age is 10.",
+    "ageMax": "Maximum age is 100.",
+    "heightRequired": "Please enter your height.",
+    "heightMin": "Minimum height is 100cm.",
+    "heightMax": "Maximum height is 250cm.",
+    "weightRequired": "Please enter your weight.",
+    "weightMin": "Minimum weight is 20kg.",
+    "weightMax": "Maximum weight is 300kg."
   },
   "onboarding": {
     "step": "Step {{current}} / {{total}}",
@@ -59,6 +68,11 @@
     "goalSub": "Choose a goal so we can adjust your calorie intake.",
     "activity": "Activity Level",
     "activitySub": "Choose your average weekly activity level.",
+    "inActive": "In Active",
+    "light": "Light Active",
+    "moderate": "Moderate Active",
+    "active": "Active",
+    "veryActive": "Very Active",
     "result": "Your Plan",
     "resultSub": "Based on your information, here is your daily calorie target.",
     "next": "Next",
@@ -72,7 +86,9 @@
     "weight": "Weight",
     "lose": "Lose Weight",
     "maintain": "Maintain",
-    "gain": "Gain Weight"
+    "gain": "Gain Weight",
+    "alreadySetUp": "Already set up before?",
+    "skip": "Skip"
   },
   "dashboard": {
     "title": "Dashboard",
@@ -125,6 +141,7 @@
     "thisWeek": "This Week",
     "prevWeek": "Previous Week",
     "nextWeek": "Next Week",
+    "weeksAgo": "Weeks Ago",
     "currentWeight": "Current Weight",
     "change": "Change",
     "avgCalories": "Avg Calories / Day",
@@ -174,6 +191,26 @@
     "logout": "Logout",
     "goal": "Goal:",
     "targetCalories": "kcal/day"
+  },
+  "stats": {
+    "bmi": {
+      "label": "BMI",
+      "underweight": "Underweight",
+      "normal": "Normal weight",
+      "overweight": "Overweight",
+      "obese": "Obese",
+      "info": "Body Mass Index"
+    },
+    "bmr": {
+      "label": "BMR",
+      "unit": "kcal/day",
+      "info": "Basal Metabolic Rate"
+    },
+    "tdee": {
+      "label": "TDEE",
+      "unit": "kcal/day",
+      "info": "Total Daily Energy Expenditure"
+    }
   },
   "nav": {
     "dashboard": "Dashboard",

@@ -1,10 +1,10 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '../../store/auth-store';
-import { useThemeStore } from '../../store/theme-store';
-import { useProfile } from '../../hooks/use-onboarding';
-import LanguageSwitcher from '../ui/language-switcher';
+import { useAuthStore } from '@store/auth-store';
+import { useThemeStore } from '@store/theme-store';
+import { useProfile } from '@hooks/use-onboarding';
+import LanguageSwitcher from '@ui/language-switcher';
 import styles from './app-layout.module.css';
 
 interface AppLayoutProps {

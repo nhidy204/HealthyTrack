@@ -1,5 +1,5 @@
 import api from './auth-service';
-import type { OnboardingForm, NutritionPlan } from '../types/onboarding-types';
+import type { OnboardingForm, NutritionPlan } from '@typing/onboarding-types';
 
 export interface OnboardingPayload extends OnboardingForm {
     targetCalories: number;

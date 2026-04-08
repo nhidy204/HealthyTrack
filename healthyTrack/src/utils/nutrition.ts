@@ -1,4 +1,4 @@
-import type { BasicInfo, Goal, ActivityLevel, NutritionPlan } from '../types/onboarding-types';
+import type { BasicInfo, Goal, ActivityLevel, NutritionPlan } from '@typing/onboarding-types';
 
 /**
  * Mifflin-St Jeor Equation
@@ -42,4 +42,19 @@ export function goalLabel(goal: Goal): string {
         gain: 'tăng cân',
     };
     return map[goal];
+}
+
+/** Calculate BMI: weight (kg) / (height (cm) / 100)^2 */
+export function calcBMI(weight: number, height: number): number {
+    const heightInMeters = height / 100;
+    return weight / (heightInMeters * heightInMeters);
+}
+
+/** Classify BMI status */
+export type BMIClassification = 'underweight' | 'normal' | 'overweight' | 'obese';
+export function classifyBMI(bmi: number): BMIClassification {
+    if (bmi < 18.5) return 'underweight';
+    if (bmi < 25) return 'normal';
+    if (bmi < 30) return 'overweight';
+    return 'obese';
 }

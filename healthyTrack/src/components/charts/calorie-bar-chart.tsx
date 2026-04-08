@@ -2,6 +2,8 @@ import React from 'react';
 import {
     BarChart, Bar, XAxis, YAxis, CartesianGrid,
     Tooltip, ResponsiveContainer, ReferenceLine, Cell,
+    type RenderableText,
+    type TooltipValueType,
 } from 'recharts';
 
 interface DataPoint { date: string; calories: number }
@@ -36,7 +38,11 @@ const CalorieBarChart: React.FC<CalorieBarChartProps> = ({ data, target }) => {
                         background: 'var(--color-surface)', border: '0.5px solid var(--color-border)',
                         borderRadius: 8, fontSize: 12,
                     }}
-                    formatter={(val: number) => [`${val.toLocaleString()} kcal`, 'Calo']}
+                    // formatter={(val: number) => [`${val.toLocaleString()} kcal`, 'Calo']}
+                    formatter={(val: RenderableText | TooltipValueType) => {
+                        console.log('Tooltip formatter received value:', val);
+                        return [`${val?.toLocaleString()} kcal`, 'Calo'];
+                    }}
                 />
                 {target > 0 && (
                     <ReferenceLine

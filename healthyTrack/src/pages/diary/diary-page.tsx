@@ -1,12 +1,12 @@
 import React, { useState, useMemo } from 'react';
-import AppLayout from '../../components/layout/app-layout';
-import MealSection from '../../components/diary/meal-section';
-import AddFoodModal from '../../components/diary/add-food-modal';
-import { useDiaryEntries, useAddFoodEntry, useDeleteFoodEntry, groupByMeal } from '../../hooks/use-diary';
-import { useProfile } from '../../hooks/use-onboarding';
-import type { MealType } from '../../types/diary-types';
-import DiaryCalendar from '../../components/diary/diary-calendar';
-import { useMonthlyCalories } from '../../hooks/use-monthly-calories';
+import AppLayout from '@components/layout/app-layout';
+import MealSection from '@components/diary/meal-section';
+import AddFoodModal from '@components/diary/add-food-modal';
+import { useDiaryEntries, useAddFoodEntry, useDeleteFoodEntry, groupByMeal } from '@hooks/use-diary';
+import { useProfile } from '@hooks/use-onboarding';
+import type { MealType } from '@typing/diary-types';
+import DiaryCalendar from '@components/diary/diary-calendar';
+import { useMonthlyCalories } from '@hooks/use-monthly-calories';
 import { useTranslation } from 'react-i18next';
 import styles from './diary-page.module.css';
 

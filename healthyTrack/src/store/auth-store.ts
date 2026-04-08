@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { User, AuthState } from '../types/auth-types';
+import type { User, AuthState } from '@typing/auth-types';
 
 interface AuthStore extends AuthState {
     setAuth: (user: User, token: string) => void;

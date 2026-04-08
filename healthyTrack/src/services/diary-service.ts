@@ -1,5 +1,5 @@
 import api from './auth-service';
-import type { FoodEntry, CreateFoodEntryPayload } from '../types/diary-types';
+import type { FoodEntry, CreateFoodEntryPayload } from '@typing/diary-types';
 
 interface MonthlyCalories {
     [date: string]: number;

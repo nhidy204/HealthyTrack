@@ -1,6 +1,6 @@
 import api from './auth-service';
-import type { WeeklyReport } from '../types/reports-types';
-import type { SidebarStats } from '../types/reports-types';
+import type { WeeklyReport } from '@typing/reports-types';
+import type { SidebarStats } from '@typing/reports-types';
 
 export const reportsService = {
   getWeeklyReport: async (weekOffset = 0): Promise<WeeklyReport> => {

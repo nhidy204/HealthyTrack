@@ -1,5 +1,5 @@
 import React from 'react';
-import type { SidebarStats } from '../../types/reports-types';
+import type { SidebarStats } from '@typing/reports-types';
 import styles from './reports-sidebar.module.css';
 
 interface ReportsSidebarProps {

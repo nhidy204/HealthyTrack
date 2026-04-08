@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import type { MealType } from '../../types/diary-types';
-import { MEAL_META } from '../../types/diary-types';
-import Input from '../ui/input';
-import Button from '../ui/button';
+import type { MealType } from '@typing/diary-types';
+import { MEAL_META } from '@typing/diary-types';
+import Input from '@ui/input';
+import Button from '@ui/button';
 import styles from './add-food-modal.module.css';
 
 interface AddFoodForm {

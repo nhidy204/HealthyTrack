@@ -1,3 +1,5 @@
+import type { ActivityLevel } from '@typing/onboarding-types';
+
 export interface UpdateProfilePayload {
     firstName: string;
     lastName: string;
@@ -7,7 +9,7 @@ export interface UpdateProfilePayload {
     height: number;
     weight: number;
     goal: 'lose' | 'maintain' | 'gain';
-    activityLevel: number;
+    activityLevel: ActivityLevel;
 }
 
 export interface ChangePasswordPayload {

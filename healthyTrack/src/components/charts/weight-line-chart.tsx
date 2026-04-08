@@ -1,7 +1,7 @@
 import React from 'react';
 import {
     LineChart, Line, XAxis, YAxis, CartesianGrid,
-    Tooltip, ResponsiveContainer, ReferenceLine,
+    Tooltip, ResponsiveContainer,
 } from 'recharts';
 
 interface DataPoint { date: string; weight: number }
@@ -39,7 +39,11 @@ const WeightLineChart: React.FC<WeightLineChartProps> = ({ data }) => {
                         background: 'var(--color-surface)', border: '0.5px solid var(--color-border)',
                         borderRadius: 8, fontSize: 12,
                     }}
-                    formatter={(val: number) => [`${val} kg`, 'Cân nặng']}
+                    // formatter={(val: number) => [`${val} kg`, 'Cân nặng']}
+                    formatter={(val) => {
+                        console.log('Tooltip formatter received value:', val);
+                        return [`${val?.toLocaleString()} kg`, 'Cân nặng'];
+                    }}
                     labelFormatter={(label) => label}
                 />
                 <Line

@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import LanguageSwitcher from '../ui/language-switcher';
+import LanguageSwitcher from '@ui/language-switcher';
 import styles from './auth-layout.module.css';
 
 interface AuthLayoutProps {

@@ -9,6 +9,11 @@ export async function setupProfile(req: AuthRequest, res: Response) {
     try {
         const { gender, age, height, weight, goal, activityLevel } = req.body;
 
+        const VALID_ACTIVITY_LEVELS = [1.2, 1.375, 1.55, 1.725, 1.9];
+        if (!VALID_ACTIVITY_LEVELS.includes(activityLevel)) {
+            return res.status(400).json({ message: 'Invalid activity level.' });
+        }
+
         const bmr = calcBMR(gender, weight, height, age);
         const tdee = calcTDEE(bmr, activityLevel);
         const targetCalories = calcTargetCalories(tdee, goal);
@@ -21,6 +26,7 @@ export async function setupProfile(req: AuthRequest, res: Response) {
 
         return res.status(201).json({ profile, plan: { bmr, tdee, targetCalories, goal } });
     } catch (err) {
+        console.error('Profile setup error:', err);
         return res.status(400).json({ message: 'Lỗi thiết lập hồ sơ.' });
     }
 }
@@ -41,6 +47,11 @@ export async function updateProfile(req: AuthRequest, res: Response) {
     try {
         const { firstName, lastName, email, gender, age, height, weight, goal, activityLevel } = req.body;
 
+        const VALID_ACTIVITY_LEVELS = [1.2, 1.375, 1.55, 1.725, 1.9];
+        if (activityLevel !== undefined && !VALID_ACTIVITY_LEVELS.includes(activityLevel)) {
+            return res.status(400).json({ message: 'Invalid activity level.' });
+        }
+
         // Update user info
         if (firstName || lastName || email) {
             await User.findByIdAndUpdate(req.userId, { firstName, lastName, email });
@@ -58,7 +69,8 @@ export async function updateProfile(req: AuthRequest, res: Response) {
         );
 
         return res.json(profile);
-    } catch {
+    } catch (err) {
+        console.error('Profile update error:', err);
         return res.status(400).json({ message: 'Lỗi cập nhật hồ sơ.' });
     }
 }

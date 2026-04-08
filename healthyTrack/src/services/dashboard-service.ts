@@ -1,5 +1,5 @@
 import api from './auth-service';
-import type { DailySummary, WeightLog, WaterLog } from '../types/dashboard-types';
+import type { DailySummary, WeightLog, WaterLog } from '@typing/dashboard-types';
 
 const today = () => new Date().toISOString().split('T')[0];
 

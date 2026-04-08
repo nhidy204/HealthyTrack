@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import AuthLayout from '../../components/layout/auth-layout';
-import Input from '../../components/ui/input';
-import Button from '../../components/ui/button';
-import { useForgotPassword } from '../../hooks/use-auth';
+import AuthLayout from '@components/layout/auth-layout';
+import Input from '@ui/input';
+import Button from '@ui/button';
+import { useForgotPassword } from '@hooks/use-auth';
 import { useTranslation } from 'react-i18next';
-import type { ForgotPasswordForm } from '../../types/auth-types';
+import type { ForgotPasswordForm } from '@typing/auth-types';
 import styles from './Auth.module.css';
 
 const ForgotPasswordPage: React.FC = () => {

@@ -94,7 +94,7 @@ export async function changePassword(req: AuthRequest, res: Response) {
 
         user.password = newPassword;
         await user.save();
-        return res.json({ message: 'Đã đổi mật khẩu thành công.' });
+        return res.json({ message: 'Đã đổi mật khẩu thành công.' }); 
     } catch {
         return res.status(500).json({ message: 'Lỗi đổi mật khẩu.' });
     }

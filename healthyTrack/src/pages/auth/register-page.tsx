@@ -1,14 +1,14 @@
 import React, { useCallback, useMemo } from 'react';
-import { debounce } from '../../utils/debounce';
+import { debounce } from '@utils/debounce';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import AuthLayout from '../../components/layout/auth-layout';
-import Input from '../../components/ui/input';
-import Button from '../../components/ui/button';
-import PasswordStrength from '../../components/ui/password-strength';
-import { useRegister, useCheckUsername } from '../../hooks/use-auth';
+import AuthLayout from '@components/layout/auth-layout';
+import Input from '@ui/input';
+import Button from '@ui/button';
+import PasswordStrength from '@ui/password-strength';
+import { useRegister, useCheckUsername } from '@hooks/use-auth';
 import { useTranslation } from 'react-i18next';
-import type { RegisterForm } from '../../types/auth-types';
+import type { RegisterForm } from '@typing/auth-types';
 import styles from './auth.module.css';
 
 const RegisterPage: React.FC = () => {

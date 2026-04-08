@@ -49,7 +49,16 @@
     "lastNameRequired": "Nhập họ của bạn.",
     "confirmPasswordRequired": "Vui lòng xác nhận mật khẩu.",
     "passwordMin": "Mật khẩu cần ít nhất 8 ký tự.",
-    "passwordMismatch": "Mật khẩu không khớp."
+    "passwordMismatch": "Mật khẩu không khớp.",
+    "ageRequired": "Vui lòng nhập tuổi.",
+    "ageMin": "Tuổi tối thiểu là 10.",
+    "ageMax": "Tuổi tối đa là 100.",
+    "heightRequired": "Vui lòng nhập chiều cao.",
+    "heightMin": "Chiều cao tối thiểu 100cm.",
+    "heightMax": "Chiều cao tối đa 250cm.",
+    "weightRequired": "Vui lòng nhập cân nặng.",
+    "weightMin": "Cân nặng tối thiểu 20kg.",
+    "weightMax": "Cân nặng tối đa 300kg."
   },
   "onboarding": {
     "step": "Bước {{current}} / {{total}}",
@@ -59,6 +68,11 @@
     "goalSub": "Chọn mục tiêu để chúng tôi điều chỉnh lượng calo phù hợp.",
     "activity": "Mức độ vận động",
     "activitySub": "Chọn mức độ vận động trung bình mỗi tuần của bạn.",
+    "inActive": "Không vận động",
+    "light": "Vận động nhẹ",
+    "moderate": "Vận động vừa phải",
+    "active": "Năng động",
+    "veryActive": "Rất năng động",
     "result": "Kế hoạch của bạn",
     "resultSub": "Dựa trên thông tin đã cung cấp, đây là mục tiêu calo hàng ngày của bạn.",
     "next": "Tiếp theo",
@@ -72,7 +86,9 @@
     "weight": "Cân nặng",
     "lose": "Giảm cân",
     "maintain": "Duy trì",
-    "gain": "Tăng cân"
+    "gain": "Tăng cân",
+    "alreadySetUp": "Đã thiết lập trước đó?",
+    "skip": "Bỏ qua"
   },
   "dashboard": {
     "title": "Tổng quan",
@@ -125,6 +141,7 @@
     "thisWeek": "Tuần này",
     "prevWeek": "Tuần trước",
     "nextWeek": "Tuần sau",
+    "weeksAgo": "tuần trước",
     "currentWeight": "Cân nặng hiện tại",
     "change": "Thay đổi",
     "avgCalories": "TB calo / ngày",
@@ -174,6 +191,26 @@
     "logout": "Đăng xuất",
     "goal": "Mục tiêu:",
     "targetCalories": "kcal/ngày"
+  },
+  "stats": {
+    "bmi": {
+      "label": "BMI",
+      "underweight": "Gầy",
+      "normal": "Bình thường",
+      "overweight": "Thừa cân",
+      "obese": "Béo phì",
+      "info": "Chỉ số khối cơ thể"
+    },
+    "bmr": {
+      "label": "BMR",
+      "unit": "kcal/ngày",
+      "info": "Tỷ lệ chuyển hóa cơ bản"
+    },
+    "tdee": {
+      "label": "TDEE",
+      "unit": "kcal/ngày",
+      "info": "Tổng chi tiêu năng lượng hàng ngày"
+    }
   },
   "nav": {
     "dashboard": "Tổng quan",

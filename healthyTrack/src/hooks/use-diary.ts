@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { diaryService } from '../services/diary-service';
-import type { CreateFoodEntryPayload, MealGroup, FoodEntry } from '../types/diary-types';
-import { MEAL_META, MEAL_ORDER } from '../types/diary-types';
+import { diaryService } from '@services/diary-service';
+import type { CreateFoodEntryPayload, MealGroup, FoodEntry } from '@typing/diary-types';
+import { MEAL_META, MEAL_ORDER } from '@typing/diary-types';
 import { DASHBOARD_KEYS } from './use-dashboard';
 
 export const DIARY_KEY = (date: string) => ['diary', date];

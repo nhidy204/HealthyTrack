@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import type { MealGroup, MealType } from '../../types/diary-types';
+import type { MealGroup, MealType } from '@typing/diary-types';
 import styles from './meal-section.module.css';
 
 interface MealSectionProps {

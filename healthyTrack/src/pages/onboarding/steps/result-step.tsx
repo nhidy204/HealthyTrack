@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { OnboardingForm } from '../../../types/onboarding-types';
-import { calcNutritionPlan, goalLabel } from '../../../utils/nutrition';
+import type { OnboardingForm } from '@typing/onboarding-types';
+import { calcNutritionPlan, goalLabel } from '@utils/nutrition';
 import styles from './steps.module.css';
 
 const ResultStep: React.FC = () => {

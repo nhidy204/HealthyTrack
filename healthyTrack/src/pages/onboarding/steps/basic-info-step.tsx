@@ -1,10 +1,12 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { OnboardingForm } from '../../../types/onboarding-types';
-import Input from '../../../components/ui/input';
+import { useTranslation } from 'react-i18next';
+import type { OnboardingForm } from '@typing/onboarding-types';
+import Input from '@ui/input';
 import styles from './steps.module.css';
 
 const BasicInfoStep: React.FC = () => {
+    const { t } = useTranslation();
     const {
         register,
         watch,
@@ -17,11 +19,11 @@ const BasicInfoStep: React.FC = () => {
     return (
         <div>
             <div className={styles.fieldGroup}>
-                <span className={styles.fieldLabel}>Giới tính</span>
+                <span className={styles.fieldLabel}>{t('onboarding.gender')}</span>
                 <div className={styles.genderGroup}>
                     {[
-                        { value: 'male', icon: '♂', label: 'Nam' },
-                        { value: 'female', icon: '♀', label: 'Nữ' },
+                        { value: 'male', icon: '♂', label: t('onboarding.male') },
+                        { value: 'female', icon: '♀', label: t('onboarding.female') },
                     ].map((opt) => (
                         <button
                             key={opt.value}
@@ -39,41 +41,41 @@ const BasicInfoStep: React.FC = () => {
 
             <div className={styles.fieldRow}>
                 <Input
-                    label="Tuổi"
+                    label={t('onboarding.age')}
                     type="number"
                     placeholder="25"
-                    suffix="tuổi"
+                    suffix={t('common.years')}
                     error={errors.age?.message}
                     {...register('age', {
-                        required: 'Vui lòng nhập tuổi.',
-                        min: { value: 10, message: 'Tuổi tối thiểu là 10.' },
-                        max: { value: 100, message: 'Tuổi tối đa là 100.' },
+                        required: t('validation.ageRequired') || 'Vui lòng nhập tuổi.',
+                        min: { value: 10, message: t('validation.ageMin') || 'Tuổi tối thiểu là 10.' },
+                        max: { value: 100, message: t('validation.ageMax') || 'Tuổi tối đa là 100.' },
                         valueAsNumber: true,
                     })}
                 />
                 <Input
-                    label="Chiều cao"
+                    label={t('onboarding.height')}
                     type="number"
                     placeholder="170"
-                    suffix="cm"
+                    suffix={t('common.cm')}
                     error={errors.height?.message}
                     {...register('height', {
-                        required: 'Vui lòng nhập chiều cao.',
-                        min: { value: 100, message: 'Chiều cao tối thiểu 100cm.' },
-                        max: { value: 250, message: 'Chiều cao tối đa 250cm.' },
+                        required: t('validation.heightRequired') || 'Vui lòng nhập chiều cao.',
+                        min: { value: 100, message: t('validation.heightMin') || 'Chiều cao tối thiểu 100cm.' },
+                        max: { value: 250, message: t('validation.heightMax') || 'Chiều cao tối đa 250cm.' },
                         valueAsNumber: true,
                     })}
                 />
                 <Input
-                    label="Cân nặng"
+                    label={t('onboarding.weight')}
                     type="number"
                     placeholder="65"
-                    suffix="kg"
+                    suffix={t('common.kg')}
                     error={errors.weight?.message}
                     {...register('weight', {
-                        required: 'Vui lòng nhập cân nặng.',
-                        min: { value: 20, message: 'Cân nặng tối thiểu 20kg.' },
-                        max: { value: 300, message: 'Cân nặng tối đa 300kg.' },
+                        required: t('validation.weightRequired') || 'Vui lòng nhập cân nặng.',
+                        min: { value: 20, message: t('validation.weightMin') || 'Cân nặng tối thiểu 20kg.' },
+                        max: { value: 300, message: t('validation.weightMax') || 'Cân nặng tối đa 300kg.' },
                         valueAsNumber: true,
                     })}
                 />
