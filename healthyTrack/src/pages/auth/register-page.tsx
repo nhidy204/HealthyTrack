@@ -29,30 +29,30 @@ const RegisterPage: React.FC = () => {
 
     // kiểm tra tính khả dụng của name user
     const checkUsername = useCallback(
-  async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const val = e.target.value.trim();
-    if (val.length < 3) return;
-    try {
-      const res = await checkUsernameMutation.mutateAsync(val);
-      if (!res.available) {
-        setError('username', {
-          type: 'manual',
-          message: t('auth.usernameTaken', { username: val }),
-        });
-      } else {
-        clearErrors('username');
-      }
-    } catch {
-      // network error — skip
-    }
-  },
-  [checkUsernameMutation, setError, clearErrors, t]
-);
+        async (e: React.ChangeEvent<HTMLInputElement>) => {
+            const val = e.target.value.trim();
+            if (val.length < 3) return;
+            try {
+                const res = await checkUsernameMutation.mutateAsync(val);
+                if (!res.available) {
+                    setError('username', {
+                        type: 'manual',
+                        message: t('auth.usernameTaken', { username: val }),
+                    });
+                } else {
+                    clearErrors('username');
+                }
+            } catch {
+                // network error — skip
+            }
+        },
+        [checkUsernameMutation, setError, clearErrors, t]
+    );
 
-const handleUsernameChange = useMemo(
-  () => debounce(checkUsername, 500),
-  [checkUsername]
-);
+    const handleUsernameChange = useMemo(
+        () => debounce(checkUsername, 500),
+        [checkUsername]
+    );
 
     const onSubmit = (data: RegisterForm) => {
         if (errors.username) return; // block if username taken
@@ -137,7 +137,15 @@ const handleUsernameChange = useMemo(
                             error={errors.password?.message}
                             {...register('password', {
                                 required: t('validation.passwordRequired'),
-                                minLength: { value: 8, message: t('validation.passwordMin') },
+                                minLength: {
+                                    value: 8,
+                                    message: 'Mật khẩu phải có ít nhất 8 ký tự',
+                                },
+                                pattern: {
+                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/,
+                                    message:
+                                        'Mật khẩu phải có chữ hoa, chữ thường, số và ký tự đặc biệt',
+                                },
                             })}
                         />
                         <PasswordStrength password={password} />

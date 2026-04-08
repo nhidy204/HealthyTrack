@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuthStore } from '@store/auth-store';
@@ -13,6 +13,7 @@ interface AppLayoutProps {
 }
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children, title }) => {
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const { t, i18n } = useTranslation();
   const { user, logout } = useAuthStore();
   const { isDark, toggleTheme } = useThemeStore();
@@ -43,7 +44,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, title }) => {
 
   return (
     <div className={styles.root}>
-      <aside className={styles.sidebar}>
+      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
         <div className={styles.brand}>
           <span className={styles.brandIcon}>🌿</span>
           <span className={styles.brandName}>HealthyTrack</span>
@@ -57,6 +58,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, title }) => {
               className={({ isActive }) =>
                 `${styles.navItem} ${isActive ? styles.navActive : ''}`
               }
+              onClick={() => setSidebarOpen(false)}
             >
               <span className={styles.navIcon}>{item.icon}</span>
               {item.label}
@@ -89,9 +91,16 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children, title }) => {
         </div>
       </aside>
 
+      {sidebarOpen && <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />}
+
       {/* Main */}
       <div className={styles.main}>
         <header className={styles.topbar}>
+          <button className={styles.hamburger} onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Toggle menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
           <div>
             <div className={styles.topbarTitle}>{title}</div>
             <div className={styles.topbarDate}>
