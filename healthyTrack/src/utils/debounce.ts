@@ -1,12 +1,23 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-export function debounce<T extends (...args: any[]) => void>(
-  fn: T, 
+export type Debounced<TArgs extends unknown[]> =
+  ((...args: TArgs) => void) & { cancel: () => void };
+
+export function debounce<TArgs extends unknown[]>(
+  fn: (...args: TArgs) => unknown,
   delay: number
-): (...args: Parameters<T>) => void {
+): Debounced<TArgs> {
   let timer: ReturnType<typeof setTimeout> | null = null;
 
-  return (...args: Parameters<T>) => { 
+  const debounced = (...args: TArgs) => {
     if (timer) clearTimeout(timer);
-    timer = setTimeout(() => fn(...args), delay);
+
+    timer = setTimeout(() => {
+      fn(...args);
+    }, delay);
   };
+
+  debounced.cancel = () => {
+    if (timer) clearTimeout(timer);
+  };
+
+  return debounced;
 }

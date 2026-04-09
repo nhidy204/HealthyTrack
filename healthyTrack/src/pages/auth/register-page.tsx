@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useMemo, useRef, useEffect } from 'react';
 import { debounce } from '@utils/debounce';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
@@ -27,13 +27,23 @@ const RegisterPage: React.FC = () => {
 
     const password = watch('password', '');
 
-    // kiểm tra tính khả dụng của name user
+    // tránh race condition
+    const lastCheckedUsername = useRef<string>('');
+
     const checkUsername = useCallback(
-        async (e: React.ChangeEvent<HTMLInputElement>) => {
-            const val = e.target.value.trim();
+        async (username: string) => {
+            const val = username.trim();
+
             if (val.length < 3) return;
+
+            lastCheckedUsername.current = val;
+
             try {
                 const res = await checkUsernameMutation.mutateAsync(val);
+
+                // chỉ xử lý nếu request mới nhất
+                if (lastCheckedUsername.current !== val) return;
+
                 if (!res.available) {
                     setError('username', {
                         type: 'manual',
@@ -43,7 +53,7 @@ const RegisterPage: React.FC = () => {
                     clearErrors('username');
                 }
             } catch {
-                // network error — skip
+                // ignore network error
             }
         },
         [checkUsernameMutation, setError, clearErrors, t]
@@ -54,10 +64,18 @@ const RegisterPage: React.FC = () => {
         [checkUsername]
     );
 
+    // cleanup debounce khi unmount
+    useEffect(() => {
+        return () => {
+            handleUsernameChange.cancel();
+        };
+    }, [handleUsernameChange]);
+
     const onSubmit = (data: RegisterForm) => {
-        if (errors.username) return; // block if username taken
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        if (errors.username) return;
+
         const { confirmPassword, ...payload } = data;
+        void confirmPassword;
         registerMutation.mutate(payload);
     };
 
@@ -109,7 +127,8 @@ const RegisterPage: React.FC = () => {
                                 value: /^[a-zA-Z0-9_]+$/,
                                 message: 'Chỉ dùng chữ, số và dấu gạch dưới.',
                             },
-                            onChange: handleUsernameChange,
+                            onChange: (e) =>
+                                handleUsernameChange(e.target.value),
                         })}
                     />
 

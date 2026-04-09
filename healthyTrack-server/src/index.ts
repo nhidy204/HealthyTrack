@@ -10,6 +10,9 @@ import diaryRoutes from './routes/diary';
 import dashboardRoutes from './routes/dashboard';
 import reportsRoutes from './routes/reports';
 
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from './config/swagger';
+
 const app = express();
 const PORT = process.env.PORT ?? 5000;
 
@@ -20,6 +23,8 @@ app.use(cors({
     credentials: true
 }));
 app.use(express.json());
+
+app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 //routes
 app.use('/api/auth', authRoutes);
