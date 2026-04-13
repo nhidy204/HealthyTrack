@@ -21,8 +21,10 @@ export const createFoodEntrySchema = z.object({
     .max(50, 'Khẩu phần không quá 50 ký tự.'),
   calories: z
     .number({ invalid_type_error: 'Calo phải là số.' })
-    .refine((val) => !isNaN(val), 'Vui lòng nhập calo.')
-    .pipe(z.number().min(1, 'Calo phải lớn hơn 0.').int('Calo phải là số nguyên.').max(10000, 'Calo tối đa 10000.')),
+    .nonnegative('Calo không âm.')
+    .int('Calo phải là số nguyên.')
+    .max(10000, 'Calo tối đa 10000.')
+    .refine((val) => !isNaN(val), 'Vui lòng nhập calo.'),
   mealType: z.enum(['breakfast', 'lunch', 'dinner', 'snack'] as const, {
     errorMap: () => ({ message: 'Loại bữa ăn không hợp lệ.' }),
   }) as z.ZodType<MealType>,
