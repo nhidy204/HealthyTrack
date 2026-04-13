@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router-dom';
 import { ACTIVITY_OPTIONS, GOAL_OPTIONS, type ActivityLevel } from '@typing/onboarding-types';
 import { calcBMR, calcTDEE } from '@utils/nutrition';
 import type { UpdateProfilePayload } from '@typing/profile-types';
+import { useNotificationStore } from '@store/notification-store';
+import { useWaterReminder } from '@hooks/use-water-reminder';
 import styles from './profile-page.module.css';
 
 const ProfilePage: React.FC = () => {
@@ -82,6 +84,9 @@ const ProfilePage: React.FC = () => {
         age: profile.age,
     }) : 0;
     const tdee = profile ? calcTDEE(bmr, profile.activityLevel) : 0;
+
+    const { waterReminderEnabled, setWaterReminder } = useNotificationStore();
+    useWaterReminder(waterReminderEnabled);
 
     if (isLoading) {
         return <AppLayout title={t('profile.title')}><div className={styles.loading}>{t('common.loading')}</div></AppLayout>;
@@ -176,20 +181,27 @@ const ProfilePage: React.FC = () => {
                             <div className={styles.toggleRow}>
                                 <span className={styles.toggleLabel}>{t('profile.darkMode')}</span>
                                 <label className={styles.toggle}>
-                                    <input type="checkbox" checked={isDark} onChange={toggleTheme} />
+                                    <input type="checkbox" checked={isDark} onChange={toggleTheme} placeholder='toggle theme' />
                                     <span className={styles.toggleSlider} />
                                 </label>
                             </div>
 
                             <div className={`${styles.toggleRow} ${styles.toggleRowLast}`}>
-                                <span className={styles.toggleLabel}>{t('profile.waterReminder')}</span>
+                                <div>
+                                    <span className={styles.toggleLabel}>{t('profile.waterReminder')}</span>
+                                </div>
                                 <label className={styles.toggle}>
-                                    <input type="checkbox" defaultChecked />
+                                    <input
+                                        type="checkbox"
+                                        checked={waterReminderEnabled}
+                                        onChange={(e) => setWaterReminder(e.target.checked)}
+                                        placeholder='toggle water'
+                                    />
                                     <span className={styles.toggleSlider} />
                                 </label>
                             </div>
                         </div>
-                        
+
                         <div className={styles.card}>
                             <div className={styles.cardTitle}>{t('profile.account')}</div>
                             <button type="button" className={styles.logoutBtn} onClick={handleLogout}>
