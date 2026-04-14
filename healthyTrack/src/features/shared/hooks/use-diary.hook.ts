@@ -1,8 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { diaryService } from '@shared/services/diary-service';
+import { diaryService } from '@shared/services/diary.service';
 import type { CreateFoodEntryPayload, MealGroup, FoodEntry } from '@diary/diary.types';
 import { MEAL_META, MEAL_ORDER } from '@diary/diary.types';
-import { DASHBOARD_KEYS } from '@dashboard/use-dashboard.hook';
+import { DASHBOARD_KEYS } from '@shared/hooks/use-dashboard.hook';
 
 export const DIARY_KEY = (date: string) => ['diary', date];
 export const MONTHLY_KEY = (year: number, month: number) => ['diary', 'monthly', year, month];
@@ -70,5 +70,7 @@ export function useUpdateFoodEntry(date: string) {
     },
   });
 }
+
+
 
 

@@ -1,4 +1,4 @@
-import api from '@shared/services/auth-service';
+import api from '@shared/services/auth.service';
 import type { FoodEntry, CreateFoodEntryPayload } from '@diary/diary.types';
 
 interface MonthlyCalories {
@@ -30,5 +30,6 @@ export const diaryService = {
         return data;
     },
 };
+
 
 

@@ -6,7 +6,7 @@ import AuthLayout from '@shared/components/layout/auth-layout';
 import Input from '@ui/input';
 import Button from '@ui/button';
 import PasswordStrength from '@ui/password-strength';
-import { useResetPassword } from '@shared/hooks/use-auth';
+import { useResetPassword } from '@shared/hooks/use-auth.hook';
 import { useTranslation } from 'react-i18next';
 import { resetPasswordSchema, type ResetPasswordFormData } from '@auth/auth.schema';
 import styles from './Auth.module.css';
@@ -109,5 +109,6 @@ const ResetPasswordPage: React.FC = () => {
 };
 
 export default ResetPasswordPage;
+
 
 

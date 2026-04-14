@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { authService } from '@shared/services/auth-service';
+import { authService } from '@shared/services/auth.service';
 import { useAuthStore } from '@auth/auth.store';
 import type { LoginPayload, RegisterPayload, ForgotPasswordPayload, ResetPasswordPayload } from '@auth/auth.types';
 
@@ -55,5 +55,6 @@ export function useResetPassword() {
         },
     });
 }
+
 
 

@@ -3,7 +3,7 @@ import AppLayout from '@shared/components/layout/app-layout';
 import WeightLineChart from '@dashboard/components/weight-line-chart';
 import CalorieBarChart from '@dashboard/components/calorie-bar-chart';
 import ReportsSidebar from '@reports/components/reports-sidebar';
-import { useWeeklyReport, useSidebarStats } from '@shared/hooks/use-reports';
+import { useWeeklyReport, useSidebarStats } from '@shared/hooks/use-reports.hook';
 import { useTranslation } from 'react-i18next';
 import styles from './reports-page.module.css';
 
@@ -97,5 +97,6 @@ const ReportsPage: React.FC = () => {
 };
 
 export default ReportsPage;
+
 
 

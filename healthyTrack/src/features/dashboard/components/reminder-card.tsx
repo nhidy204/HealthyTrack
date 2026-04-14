@@ -1,5 +1,5 @@
 import React from 'react';
-import { useWaterLog, useLogWater } from '@shared/hooks/use-dashboard';
+import { useWaterLog, useLogWater } from '@shared/hooks/use-dashboard.hook';
 import { useTranslation } from 'react-i18next';
 import styles from './reminder-card.module.css';
 
@@ -74,5 +74,6 @@ const ReminderCard: React.FC<ReminderCardProps> = ({ exerciseMinutes = 0 }) => {
 };
 
 export default ReminderCard;
+
 
 

@@ -3,8 +3,8 @@ import AppLayout from '@shared/components/layout/app-layout';
 import CalorieDonut from '@dashboard/components/calorie-donut';
 import WeightCard from '@dashboard/components/weight-card';
 import ReminderCard from '@dashboard/components/reminder-card';
-import { useDailySummary } from '@shared/hooks/use-dashboard';
-import { useProfile } from '@shared/hooks/use-onboarding';
+import { useDailySummary } from '@shared/hooks/use-dashboard.hook';
+import { useProfile } from '@shared/hooks/use-onboarding.hook';
 import { useAuthStore } from '@auth/auth.store';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
@@ -77,6 +77,7 @@ const DashboardPage: React.FC = () => {
 };
 
 export default DashboardPage;
+
 
 
 

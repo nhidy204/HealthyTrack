@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLogWeight, useWeightHistory } from '@shared/hooks/use-dashboard';
+import { useLogWeight, useWeightHistory } from '@shared/hooks/use-dashboard.hook';
 import { useTranslation } from 'react-i18next';
 import type { WeightLog } from '@dashboard/dashboard.types';
 import styles from './weight-card.module.css';
@@ -86,6 +86,7 @@ const WeightCard: React.FC = () => {
 };
 
 export default WeightCard;
+
 
 
 

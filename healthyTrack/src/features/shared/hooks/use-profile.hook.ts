@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import api from '@shared/services/auth-service';
-import { PROFILE_KEY } from '@onboarding/use-onboarding.hook';
+import api from '@shared/services/auth.service';
+import { PROFILE_KEY } from '@shared/hooks/use-onboarding.hook';
 import type { UpdateProfilePayload, ChangePasswordPayload } from '@profile/profile.types';
 
 export function useUpdateUserProfile() {
@@ -21,5 +21,7 @@ export function useChangePassword() {
             api.post('/auth/change-password', payload).then(r => r.data), 
     });
 }
+
+
 
 

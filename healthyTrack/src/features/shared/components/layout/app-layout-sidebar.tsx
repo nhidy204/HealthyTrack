@@ -1,8 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAuth, useTheme } from '@shared/hooks/use-store';
-import { useProfile } from '@shared/hooks/use-onboarding';
+import { useAuth, useTheme } from '@shared/hooks/use-store.hook';
+import { useProfile } from '@shared/hooks/use-onboarding.hook';
 import styles from './app-layout.module.css';
 
 interface AppLayoutSidebarProps {
@@ -129,5 +129,6 @@ export const AppLayoutSidebar: React.FC<AppLayoutSidebarProps> = ({
 };
 
 AppLayoutSidebar.displayName = 'AppLayoutSidebar';
+
 
 

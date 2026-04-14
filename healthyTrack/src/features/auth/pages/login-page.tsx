@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import AuthLayout from '@shared/components/layout/auth-layout';
 import Input from '@ui/input';
 import Button from '@ui/button';
-import { useLogin } from '@shared/hooks/use-auth';
+import { useLogin } from '@shared/hooks/use-auth.hook';
 import { loginSchema, type LoginFormData } from '@auth/auth.schema';
 import { useTranslation } from 'react-i18next';
 import styles from './Auth.module.css';
@@ -82,5 +82,6 @@ const LoginPage: React.FC = () => {
 };
 
 export default LoginPage;
+
 
 

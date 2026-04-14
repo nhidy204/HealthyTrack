@@ -1,4 +1,4 @@
-import api from '@shared/services/auth-service';
+import api from '@shared/services/auth.service';
 import type { WeeklyReport } from '@reports/reports.types';
 import type { SidebarStats } from '@reports/reports.types';
 
@@ -13,5 +13,6 @@ export const reportsService = {
     return data;
   },
 };
+
 
 

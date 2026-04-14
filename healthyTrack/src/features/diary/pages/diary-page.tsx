@@ -2,11 +2,11 @@ import React, { useState, useMemo } from 'react';
 import AppLayout from '@shared/components/layout/app-layout';
 import MealSection from '@diary/components/meal-section';
 import AddFoodModal from '@diary/components/add-food-modal';
-import { useDiaryEntries, useAddFoodEntry, useDeleteFoodEntry, groupByMeal } from '@shared/hooks/use-diary';
-import { useProfile } from '@shared/hooks/use-onboarding';
+import { useDiaryEntries, useAddFoodEntry, useDeleteFoodEntry, groupByMeal } from '@shared/hooks/use-diary.hook';
+import { useProfile } from '@shared/hooks/use-onboarding.hook';
 import type { MealType } from '@diary/diary.types';
 import DiaryCalendar from '@diary/components/diary-calendar';
-import { useMonthlyCalories } from '@shared/hooks/use-monthly-calories';
+import { useMonthlyCalories } from '@shared/hooks/use-monthly-calories.hook';
 import { useTranslation } from 'react-i18next';
 import styles from './diary-page.module.css';
 
@@ -163,5 +163,6 @@ const DiaryPage: React.FC = () => {
 };
 
 export default DiaryPage;
+
 
 

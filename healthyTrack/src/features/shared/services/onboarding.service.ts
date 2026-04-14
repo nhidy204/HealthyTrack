@@ -1,4 +1,4 @@
-import api from '@shared/services/auth-service';
+import api from '@shared/services/auth.service';
 import type { OnboardingForm, NutritionPlan } from '@onboarding/onboarding.types';
 
 export interface OnboardingPayload extends OnboardingForm {
@@ -26,5 +26,6 @@ export const onboardingService = {
         return data;
     },
 };
+
 
 

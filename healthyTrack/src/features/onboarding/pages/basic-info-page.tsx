@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { onboardingSchema, type OnboardingFormData } from '@onboarding/onboarding.schema';
 import { calcNutritionPlan } from '@shared/utils/nutrition';
-import { useSaveProfile } from '@shared/hooks/use-onboarding';
+import { useSaveProfile } from '@shared/hooks/use-onboarding.hook';
 import LanguageSwitcher from '@ui/language-switcher';
 import BasicInfoStep from './steps/basic-info-step';
 import GoalStep from './steps/goal-step';
@@ -147,5 +147,6 @@ const BasicInfoPage: React.FC = () => {
 };
 
 export default BasicInfoPage;
+
 
 

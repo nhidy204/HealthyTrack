@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { reportsService } from '@shared/services/reports-service';
+import { reportsService } from '@shared/services/reports.service';
 
 export function useWeeklyReport(weekOffset = 0) {
   return useQuery({
@@ -17,4 +17,5 @@ export function useSidebarStats(weekOffset = 0) {
     retry: false,
   });
 }
+
 

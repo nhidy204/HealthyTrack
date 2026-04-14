@@ -7,7 +7,7 @@ import AuthLayout from '@shared/components/layout/auth-layout';
 import Input from '@ui/input';
 import Button from '@ui/button';
 import PasswordStrength from '@ui/password-strength';
-import { useRegister, useCheckUsername } from '@shared/hooks/use-auth';
+import { useRegister, useCheckUsername } from '@shared/hooks/use-auth.hook';
 import { useTranslation } from 'react-i18next';
 import { registerSchema, type RegisterFormData } from '@auth/auth.schema';
 import styles from './auth.module.css';
@@ -181,4 +181,5 @@ const RegisterPage: React.FC = () => {
 };
 
 export default RegisterPage;
+
 

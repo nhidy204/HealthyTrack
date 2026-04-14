@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
-import { onboardingService, type OnboardingPayload } from '@shared/services/onboarding-service';
+import { onboardingService, type OnboardingPayload } from '@shared/services/onboarding.service';
 
 export const PROFILE_KEY = ['profile'];
 
@@ -37,4 +37,5 @@ export function useUpdateProfile() {
         },
     });
 }
+
 

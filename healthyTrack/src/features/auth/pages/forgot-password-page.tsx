@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import AuthLayout from '@shared/components/layout/auth-layout';
 import Input from '@ui/input';
 import Button from '@ui/button';
-import { useForgotPassword } from '@shared/hooks/use-auth';
+import { useForgotPassword } from '@shared/hooks/use-auth.hook';
 import { useTranslation } from 'react-i18next';
 import { forgotPasswordSchema, type ForgotPasswordFormData } from '@auth/auth.schema';
 import styles from './Auth.module.css';
@@ -88,5 +88,6 @@ const ForgotPasswordPage: React.FC = () => {
 };
 
 export default ForgotPasswordPage;
+
 
 

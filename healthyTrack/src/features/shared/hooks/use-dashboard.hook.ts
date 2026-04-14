@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { dashboardService } from '@shared/services/dashboard-service';
+import { dashboardService } from '@shared/services/dashboard.service';
 
 const today = () => new Date().toISOString().split('T')[0];
 
@@ -55,4 +55,5 @@ export function useLogWater() {
         },
     });
 }
+
 

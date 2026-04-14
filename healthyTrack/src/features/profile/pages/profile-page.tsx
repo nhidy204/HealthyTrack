@@ -5,17 +5,17 @@ import AppLayout from '@shared/components/layout/app-layout';
 import Input from '@ui/input';
 import Button from '@ui/button';
 import StatsPanel from '@dashboard/components/stats-panel';
-import { useProfile } from '@shared/hooks/use-onboarding';
-import { useUpdateUserProfile } from '@shared/hooks/use-profile';
+import { useProfile } from '@shared/hooks/use-onboarding.hook';
+import { useUpdateUserProfile } from '@shared/hooks/use-profile.hook';
 import { useAuthStore } from '@auth/auth.store';
-import { useThemeStore } from '@shared/store/theme-store';
+import { useThemeStore } from '@shared/store/theme.store';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ACTIVITY_OPTIONS, GOAL_OPTIONS, type ActivityLevel } from '@onboarding/onboarding.types';
 import { calcBMR, calcTDEE } from '@shared/utils/nutrition';
 import { updateProfileSchema, type UpdateProfileFormData } from '@profile/profile.schema';
-import { useNotificationStore } from '@shared/store/notification-store';
-import { useWaterReminder } from '@shared/hooks/use-water-reminder';
+import { useNotificationStore } from '@shared/store/notification.store';
+import { useWaterReminder } from '@shared/hooks/use-water-reminder.hook';
 import styles from './profile-page.module.css';
 
 const ProfilePage: React.FC = () => {
@@ -226,6 +226,8 @@ const ProfilePage: React.FC = () => {
 };
 
 export default ProfilePage;
+
+
 
 
 

@@ -1,6 +1,6 @@
 import { useAuthStore } from '@auth/auth.store';
-import { useThemeStore } from '@shared/store/theme-store';
-import { useNotificationStore } from '@shared/store/notification-store';
+import { useThemeStore } from '@shared/store/theme.store';
+import { useNotificationStore } from '@shared/store/notification.store';
 
 
 //Hook to safely access auth store with selectors
@@ -36,6 +36,7 @@ export const useNotifications = () => {
 
   return { waterReminderEnabled, setWaterReminder };
 };
+
 
 
 

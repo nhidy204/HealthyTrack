@@ -1,4 +1,4 @@
-import api from '@shared/services/auth-service';
+import api from '@shared/services/auth.service';
 import type { DailySummary, WeightLog, WaterLog } from '@dashboard/dashboard.types';
 
 const today = () => new Date().toISOString().split('T')[0];
@@ -29,5 +29,6 @@ export const dashboardService = {
         return data;
     },
 };
+
 
 

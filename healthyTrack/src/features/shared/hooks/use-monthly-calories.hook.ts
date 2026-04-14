@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
-import { diaryService } from '@shared/services/diary-service';
-import { MONTHLY_KEY } from '@diary/use-diary.hook';
+import { diaryService } from '@shared/services/diary.service';
+import { MONTHLY_KEY } from '@shared/hooks/use-diary.hook';
 
 export function useMonthlyCalories(year: number, month: number) {
   return useQuery({
@@ -10,5 +10,7 @@ export function useMonthlyCalories(year: number, month: number) {
     retry: false,
   });
 }
+
+
 
 
