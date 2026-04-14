@@ -1,5 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
-import { useThemeStore } from '@shared/store/theme.store';
+import React, { useState, useCallback } from 'react';
 import { AppLayoutSidebar } from './app-layout-sidebar';
 import { AppLayoutTopbar } from './app-layout-topbar';
 import styles from './app-layout.module.css';
@@ -11,15 +10,6 @@ interface AppLayoutProps {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children, title }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { isDark } = useThemeStore();
-
-  // Initialize theme on mount
-  useEffect(() => {
-    document.documentElement.setAttribute(
-      'data-theme',
-      isDark ? 'dark' : 'light'
-    );
-  }, [isDark]);
 
   const handleSidebarToggle = useCallback(() => {
     setSidebarOpen((prev) => !prev);

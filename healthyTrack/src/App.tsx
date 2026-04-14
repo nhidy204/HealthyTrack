@@ -1,10 +1,8 @@
-import React, { lazy, Suspense, useEffect } from 'react';
+import React, { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useThemeStore } from '@shared/store/theme.store';
 import ProtectedRoute from '@shared/components/layout/protected-route';
 import GuestRoute from '@shared/components/layout/guest-route';
-import '@shared/styles/globals.css';
 import '@/index.css';
 
 //lazy-loaded pages
@@ -36,12 +34,6 @@ const Fallback = () => (
 );
 
 const App: React.FC = () => {
-  const isDark = useThemeStore((state) => state.isDark);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-  }, [isDark]);
-
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>

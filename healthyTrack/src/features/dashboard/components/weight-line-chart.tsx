@@ -24,24 +24,26 @@ const WeightLineChart: React.FC<WeightLineChartProps> = ({ data }) => {
         </div>
     );
 
-    const weights = data.map(d => d.weight); //lấy ra 1 mảng chỉ chứa các con số cân nặng 
-    const minY = Math.floor(Math.min(...weights) - 0.5); // tìm số nn, - 0.5 để tạo ko gian hở, rồi làm tròn xuống
+    const weights = data.map(d => d.weight);
+    const minY = Math.floor(Math.min(...weights) - 0.5);
     const maxY = Math.ceil(Math.max(...weights) + 0.5);
 
     return (
         <ResponsiveContainer width="100%" height={180}>
             <LineChart data={formatted} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" vertical={false} />
-                <XAxis dataKey="label" tick={{ fontSize: 11, fill: 'var(--text-secondary)' }} axisLine={false} tickLine={false} />
-                <YAxis domain={[minY, maxY]} tick={{ fontSize: 11, fill: 'var(--text-secondary)' }} axisLine={false} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="#e5e4e7" vertical={false} />
+                <XAxis dataKey="label" tick={{ fontSize: 11, fill: '#999999' }} axisLine={false} tickLine={false} />
+                <YAxis domain={[minY, maxY]} tick={{ fontSize: 11, fill: '#999999' }} axisLine={false} tickLine={false} />
                 <Tooltip
                     contentStyle={{
-                        background: 'var(--bg-secondary)', border: '0.5px solid var(--border-color)',
+                        background: '#fff', border: '1px solid #e5e4e7',
                         borderRadius: 8, fontSize: 12,
                     }}
-                    formatter={(val: any) => {
-                        if (typeof val === 'number') return [`${val.toLocaleString()} kg`, 'Cân nặng'];
-                        return [`${val} kg`, 'Cân nặng'];
+                    formatter={(value: string | number | ReadonlyArray<string | number> | undefined) => {
+                        if (typeof value === 'number') {
+                            return [`${value.toLocaleString()} kg`, 'Cân nặng'];
+                        }
+                        return ['-- kg', 'Cân nặng'];
                     }}
                     labelFormatter={(label) => label}
                 />
