@@ -21,10 +21,8 @@ export const createFoodEntrySchema = z.object({
     .max(50, 'Khẩu phần không quá 50 ký tự.'),
   calories: z
     .number({ invalid_type_error: 'Calo phải là số.' })
-    .nonnegative('Calo không âm.')
-    .int('Calo phải là số nguyên.')
-    .max(10000, 'Calo tối đa 10000.')
-    .refine((val) => !isNaN(val), 'Vui lòng nhập calo.'),
+    .refine((val) => !isNaN(val), 'Vui lòng nhập calo.')
+    .pipe(z.number().min(1, 'Calo phải lớn hơn 0.').int('Calo phải là số nguyên.').max(10000, 'Calo tối đa 10000.')),
   mealType: z.enum(['breakfast', 'lunch', 'dinner', 'snack'] as const, {
     errorMap: () => ({ message: 'Loại bữa ăn không hợp lệ.' }),
   }) as z.ZodType<MealType>,
@@ -40,8 +38,9 @@ export const createFoodEntrySchema = z.object({
 export type CreateFoodEntryFormData = z.infer<typeof createFoodEntrySchema>;
 
 /**
- * Add food to meal modal form
+ * Add food to meal modal form (only user input fields)
+ * mealType and date are passed as props from parent, not form fields
  */
-export const addFoodModalSchema = createFoodEntrySchema.omit({ date: true });
+export const addFoodModalSchema = createFoodEntrySchema.omit({ date: true, mealType: true });
 
 export type AddFoodModalFormData = z.infer<typeof addFoodModalSchema>;

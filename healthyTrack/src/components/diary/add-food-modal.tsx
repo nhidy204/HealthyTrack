@@ -30,7 +30,7 @@ const AddFoodModal: React.FC<AddFoodModalProps> = ({
         defaultValues: { 
             name: '',
             amount: '1 phần',
-            calories: 0,
+            calories: undefined,
         },
     });
 
@@ -40,7 +40,13 @@ const AddFoodModal: React.FC<AddFoodModalProps> = ({
 
     useEffect(() => {
         if (Object.keys(errors).length > 0) {
-            console.log('❌ Form validation errors:', errors);
+            console.log('❌ Form validation errors:', {
+                errors,
+                details: Object.entries(errors).map(([field, error]) => ({
+                    field,
+                    message: (error as any)?.message,
+                })),
+            });
         }
     }, [errors]);
 
