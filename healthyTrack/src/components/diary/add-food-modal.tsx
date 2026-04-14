@@ -23,7 +23,7 @@ const AddFoodModal: React.FC<AddFoodModalProps> = ({
         register,
         handleSubmit,
         setFocus,
-        formState: { errors, isSubmitting, isValid },
+        formState: { errors, isSubmitting },
     } = useForm<AddFoodModalFormData>({
         resolver: zodResolver(addFoodModalSchema),
         mode: 'onChange',
@@ -38,9 +38,20 @@ const AddFoodModal: React.FC<AddFoodModalProps> = ({
         setFocus('name');
     }, [setFocus]);
 
+    useEffect(() => {
+        if (Object.keys(errors).length > 0) {
+            console.log('❌ Form validation errors:', errors);
+        }
+    }, [errors]);
+
     const onSubmit = (data: AddFoodModalFormData) => {
-        console.log('Form data:', data);
+        console.log('✅ Form submitted with data:', data);
         onAdd({ ...data, mealType, date });
+    };
+
+    const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        console.log('Form submit event triggered');
+        handleSubmit(onSubmit)(e);
     };
 
     useEffect(() => {
@@ -59,7 +70,7 @@ const AddFoodModal: React.FC<AddFoodModalProps> = ({
                     <button className={styles.closeBtn} onClick={onClose} type="button">✕</button>
                 </div>
 
-                <form onSubmit={handleSubmit(onSubmit)} noValidate>
+                <form onSubmit={handleFormSubmit} noValidate>
                     <Input
                         label="Tên món ăn"
                         placeholder="VD: Cơm chiên trứng"
