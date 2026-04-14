@@ -31,18 +31,17 @@ const WeightLineChart: React.FC<WeightLineChartProps> = ({ data }) => {
     return (
         <ResponsiveContainer width="100%" height={180}>
             <LineChart data={formatted} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
-                <CartesianGrid strokeDasharray="3 3" stroke="var(--color-border)" vertical={false} />
-                <XAxis dataKey="label" tick={{ fontSize: 11, fill: 'var(--color-text-secondary)' }} axisLine={false} tickLine={false} />
-                <YAxis domain={[minY, maxY]} tick={{ fontSize: 11, fill: 'var(--color-text-secondary)' }} axisLine={false} tickLine={false} />
+                <CartesianGrid strokeDasharray="3 3" stroke="var(--border-color)" vertical={false} />
+                <XAxis dataKey="label" tick={{ fontSize: 11, fill: 'var(--text-secondary)' }} axisLine={false} tickLine={false} />
+                <YAxis domain={[minY, maxY]} tick={{ fontSize: 11, fill: 'var(--text-secondary)' }} axisLine={false} tickLine={false} />
                 <Tooltip
                     contentStyle={{
-                        background: 'var(--color-surface)', border: '0.5px solid var(--color-border)',
+                        background: 'var(--bg-secondary)', border: '0.5px solid var(--border-color)',
                         borderRadius: 8, fontSize: 12,
                     }}
-                    // formatter={(val: number) => [`${val} kg`, 'Cân nặng']}
-                    formatter={(val) => {
-                        console.log('Tooltip formatter received value:', val);
-                        return [`${val?.toLocaleString()} kg`, 'Cân nặng'];
+                    formatter={(val: any) => {
+                        if (typeof val === 'number') return [`${val.toLocaleString()} kg`, 'Cân nặng'];
+                        return [`${val} kg`, 'Cân nặng'];
                     }}
                     labelFormatter={(label) => label}
                 />
