@@ -1,6 +1,6 @@
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { OnboardingForm } from '@typing/onboarding-types';
+import { type OnboardingFormData } from '@schemas/onboarding.schema';
 import { GOAL_OPTIONS } from '@typing/onboarding-types';
 import styles from './steps.module.css';
 
@@ -9,7 +9,7 @@ const GoalStep: React.FC = () => {
         watch,
         setValue,
         formState: { errors },
-    } = useFormContext<OnboardingForm>();
+    } = useFormContext<OnboardingFormData>();
 
     const goal = watch('goal');
 

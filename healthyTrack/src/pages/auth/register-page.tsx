@@ -1,6 +1,7 @@
 import React, { useCallback, useMemo, useRef, useEffect } from 'react';
 import { debounce } from '@utils/debounce';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
 import AuthLayout from '@components/layout/auth-layout';
 import Input from '@ui/input';
@@ -8,7 +9,7 @@ import Button from '@ui/button';
 import PasswordStrength from '@ui/password-strength';
 import { useRegister, useCheckUsername } from '@hooks/use-auth';
 import { useTranslation } from 'react-i18next';
-import type { RegisterForm } from '@typing/auth-types';
+import { registerSchema, type RegisterFormData } from '@schemas/auth.schema';
 import styles from './auth.module.css';
 
 const RegisterPage: React.FC = () => {
@@ -20,7 +21,10 @@ const RegisterPage: React.FC = () => {
         setError,
         clearErrors,
         formState: { errors },
-    } = useForm<RegisterForm>({ mode: 'onBlur' });
+    } = useForm<RegisterFormData>({
+        resolver: zodResolver(registerSchema),
+        mode: 'onBlur',
+    });
 
     const registerMutation = useRegister();
     const checkUsernameMutation = useCheckUsername();
@@ -71,7 +75,7 @@ const RegisterPage: React.FC = () => {
         };
     }, [handleUsernameChange]);
 
-    const onSubmit = (data: RegisterForm) => {
+    const onSubmit = (data: RegisterFormData) => {
         if (errors.username) return;
 
         const { confirmPassword, ...payload } = data;
@@ -121,12 +125,6 @@ const RegisterPage: React.FC = () => {
                         autoComplete="username"
                         error={errors.username?.message}
                         {...register('username', {
-                            required: t('validation.usernameRequired'),
-                            minLength: { value: 3, message: t('validation.usernameMin') },
-                            pattern: {
-                                value: /^[a-zA-Z0-9_]+$/,
-                                message: 'Chỉ dùng chữ, số và dấu gạch dưới.',
-                            },
                             onChange: (e) =>
                                 handleUsernameChange(e.target.value),
                         })}
@@ -138,13 +136,7 @@ const RegisterPage: React.FC = () => {
                         placeholder="email@example.com"
                         autoComplete="email"
                         error={errors.email?.message}
-                        {...register('email', {
-                            required: t('validation.usernameRequired'),
-                            pattern: {
-                                value: /^[^@]+@[^@]+\.[^@]+$/,
-                                message: t('validation.emailInvalid'),
-                            },
-                        })}
+                        {...register('email')}
                     />
 
                     <div>
@@ -154,18 +146,7 @@ const RegisterPage: React.FC = () => {
                             placeholder="Tối thiểu 8 ký tự"
                             autoComplete="new-password"
                             error={errors.password?.message}
-                            {...register('password', {
-                                required: t('validation.passwordRequired'),
-                                minLength: {
-                                    value: 8,
-                                    message: 'Mật khẩu phải có ít nhất 8 ký tự',
-                                },
-                                pattern: {
-                                    value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z\d]).{8,}$/,
-                                    message:
-                                        'Mật khẩu phải có chữ hoa, chữ thường, số và ký tự đặc biệt',
-                                },
-                            })}
+                            {...register('password')}
                         />
                         <PasswordStrength password={password} />
                     </div>
@@ -176,10 +157,7 @@ const RegisterPage: React.FC = () => {
                         placeholder={t('auth.confirmPassword')}
                         autoComplete="new-password"
                         error={errors.confirmPassword?.message}
-                        {...register('confirmPassword', {
-                            required: t('validation.confirmPasswordRequired'),
-                            validate: (val) => val === password || t('validation.passwordMismatch'),
-                        })}
+                        {...register('confirmPassword')}
                     />
 
                     <Button

@@ -1,44 +1,48 @@
 import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import type { MealType } from '@typing/diary-types';
 import { MEAL_META } from '@typing/diary-types';
+import { addFoodModalSchema, type AddFoodModalFormData } from '@schemas/diary.schema';
 import Input from '@ui/input';
 import Button from '@ui/button';
 import styles from './add-food-modal.module.css';
 
-interface AddFoodForm {
-    name: string;
-    amount: string;
-    calories: number;
-}
-
 interface AddFoodModalProps {
     mealType: MealType;
     date: string;
-    onAdd: (data: AddFoodForm & { mealType: MealType; date: string }) => void;
-    onClose: () => void; //gọi để đóng modal
-    isLoading?: boolean; //trạng thái nút có đang xoay xoay chờ dữ liệu ko
+    onAdd: (data: AddFoodModalFormData & { mealType: MealType; date: string }) => void;
+    onClose: () => void;
+    isLoading?: boolean;
 }
 
 const AddFoodModal: React.FC<AddFoodModalProps> = ({
     mealType, date, onAdd, onClose, isLoading,
-}) => { // khởi tạo cc quản lý form (react-hook-form)
+}) => {
     const {
         register,
         handleSubmit,
         setFocus,
-        formState: { errors }, //danh sách lỗi nếu đối tượng nhập sai
-    } = useForm<AddFoodForm>({ defaultValues: { amount: '1 phần' } });
+        formState: { errors, isSubmitting, isValid },
+    } = useForm<AddFoodModalFormData>({
+        resolver: zodResolver(addFoodModalSchema),
+        mode: 'onChange',
+        defaultValues: { 
+            name: '',
+            amount: '1 phần',
+            calories: 0,
+        },
+    });
 
     useEffect(() => {
         setFocus('name');
     }, [setFocus]);
 
-    const onSubmit = (data: AddFoodForm) => { //gộp dl form
-        onAdd({ ...data, mealType, date }); 
+    const onSubmit = (data: AddFoodModalFormData) => {
+        console.log('Form data:', data);
+        onAdd({ ...data, mealType, date });
     };
 
-    //chỉ chạy khi ko có lỗi
     useEffect(() => {
         const handler = (e: KeyboardEvent) => { if (e.key === 'Escape') onClose(); };
         window.addEventListener('keydown', handler);
@@ -60,7 +64,7 @@ const AddFoodModal: React.FC<AddFoodModalProps> = ({
                         label="Tên món ăn"
                         placeholder="VD: Cơm chiên trứng"
                         error={errors.name?.message}
-                        {...register('name', { required: 'Vui lòng nhập tên món.' })}
+                        {...register('name')}
                     />
 
                     <div className={styles.row}>
@@ -68,25 +72,33 @@ const AddFoodModal: React.FC<AddFoodModalProps> = ({
                             label="Khẩu phần"
                             placeholder="VD: 1 tô, 100g"
                             error={errors.amount?.message}
-                            {...register('amount', { required: 'Nhập khẩu phần.' })}
+                            {...register('amount')}
                         />
                         <Input
                             label="Calo (kcal)"
                             type="number"
                             placeholder="350"
                             error={errors.calories?.message}
-                            {...register('calories', {
-                                required: 'Nhập lượng calo.',
-                                min: { value: 0, message: 'Calo không âm.' },
-                                max: { value: 9999, message: 'Calo quá lớn.' },
-                                valueAsNumber: true,
-                            })}
+                            {...register('calories', { valueAsNumber: true })}
                         />
                     </div>
 
                     <div className={styles.btnRow}>
-                        <Button type="button" variant="ghost" onClick={onClose}>Hủy</Button>
-                        <Button type="submit" loading={isLoading}>Thêm món</Button>
+                        <Button 
+                            type="button" 
+                            variant="ghost" 
+                            onClick={onClose} 
+                            disabled={isSubmitting || isLoading}
+                        >
+                            Hủy
+                        </Button>
+                        <Button 
+                            type="submit" 
+                            loading={isSubmitting || isLoading}
+                            disabled={isSubmitting || isLoading}
+                        >
+                            Thêm món
+                        </Button>
                     </div>
                 </form>
             </div>

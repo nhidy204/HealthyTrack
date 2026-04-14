@@ -17,11 +17,17 @@ const app = express();
 const PORT = process.env.PORT ?? 5000;
 
 //middleware
-// app.use(cors({ origin: process.env.CLIENT_URL ?? 'http://localhost:3000', credentials: true }));
-app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:3000'],
-    credentials: true
-}));
+app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+
+// app.use(cors({
+//     origin: clientURL,
+//     credentials: true
+// }));
+
+// app.use(cors({
+//     origin: ['http://localhost:5173', 'http://localhost:3000'],
+//     credentials: true
+// }));
 app.use(express.json());
 
 app.use('/api/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));

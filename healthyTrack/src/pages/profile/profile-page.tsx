@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import AppLayout from '@components/layout/app-layout';
 import Input from '@ui/input';
 import Button from '@ui/button';
@@ -12,7 +13,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import { ACTIVITY_OPTIONS, GOAL_OPTIONS, type ActivityLevel } from '@typing/onboarding-types';
 import { calcBMR, calcTDEE } from '@utils/nutrition';
-import type { UpdateProfilePayload } from '@typing/profile-types';
+import { updateProfileSchema, type UpdateProfileFormData } from '@schemas/profile.schema';
 import { useNotificationStore } from '@store/notification-store';
 import { useWaterReminder } from '@hooks/use-water-reminder';
 import styles from './profile-page.module.css';
@@ -45,7 +46,8 @@ const ProfilePage: React.FC = () => {
         return t(labelMap[level] || 'onboarding.light');
     };
 
-    const { register, handleSubmit, formState: { errors, isDirty } } = useForm<UpdateProfilePayload>({
+    const { register, handleSubmit, formState: { errors, isDirty } } = useForm<UpdateProfileFormData>({
+        resolver: zodResolver(updateProfileSchema),
         values: profile && user ? {
             firstName: user.firstName,
             lastName: user.lastName,
@@ -61,7 +63,7 @@ const ProfilePage: React.FC = () => {
         } : undefined,
     });
 
-    const onSubmit = (data: UpdateProfilePayload) => {
+    const onSubmit = (data: UpdateProfileFormData) => {
         updateProfile.mutate(data);
     };
 
@@ -120,14 +122,11 @@ const ProfilePage: React.FC = () => {
                             <div className={styles.sectionTitle}>{t('profile.personalInfo')}</div>
                             <div className={styles.formGrid}>
                                 <Input label={t('auth.lastName')} error={errors.lastName?.message}
-                                    {...register('lastName', { required: t('validation.lastNameRequired') })} />
+                                    {...register('lastName')} />
                                 <Input label={t('auth.firstName')} error={errors.firstName?.message}
-                                    {...register('firstName', { required: t('validation.firstNameRequired') })} />
+                                    {...register('firstName')} />
                                 <Input label={t('auth.email')} type="email" error={errors.email?.message}
-                                    {...register('email', {
-                                        required: t('validation.usernameRequired'),
-                                        pattern: { value: /^[^@]+@[^@]+\.[^@]+$/, message: t('validation.emailInvalid') },
-                                    })} />
+                                    {...register('email')} />
                                 <div>
                                     <label className={styles.selectLabel}>{t('onboarding.gender')}</label>
                                     <select className={styles.select} {...register('gender')}>
@@ -140,11 +139,11 @@ const ProfilePage: React.FC = () => {
                             <div className={styles.sectionTitle}>{t('profile.bodyMetrics')}</div>
                             <div className={styles.formGrid}>
                                 <Input label={t('onboarding.age')} type="number" suffix={t('common.years')} error={errors.age?.message}
-                                    {...register('age', { required: true, min: 10, max: 100, valueAsNumber: true })} />
+                                    {...register('age', { valueAsNumber: true })} />
                                 <Input label={t('onboarding.height')} type="number" suffix={t('common.cm')} error={errors.height?.message}
-                                    {...register('height', { required: true, min: 100, max: 250, valueAsNumber: true })} />
+                                    {...register('height', { valueAsNumber: true })} />
                                 <Input label={t('onboarding.weight')} type="number" suffix={t('common.kg')} error={errors.weight?.message}
-                                    {...register('weight', { required: true, min: 20, max: 300, valueAsNumber: true })} />
+                                    {...register('weight', { valueAsNumber: true })} />
                             </div>
 
                             {/*goal*/}

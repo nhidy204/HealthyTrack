@@ -1,11 +1,11 @@
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import type { OnboardingForm } from '@typing/onboarding-types';
+import { type OnboardingFormData } from '@schemas/onboarding.schema';
 import { calcNutritionPlan, goalLabel } from '@utils/nutrition';
 import styles from './steps.module.css';
 
 const ResultStep: React.FC = () => {
-    const { watch } = useFormContext<OnboardingForm>();
+    const { watch } = useFormContext<OnboardingFormData>();
     const values = watch();
 
     const plan = useMemo(() => {

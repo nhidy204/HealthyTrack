@@ -10,7 +10,7 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [react()],  // React Compiler 19 runs automatically
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -22,6 +22,7 @@ export default defineConfig({
       '@typing': path.resolve(__dirname, './src/types'),
       '@utils': path.resolve(__dirname, './src/utils'),
       '@styles': path.resolve(__dirname, './src/styles'),
+      '@schemas': path.resolve(__dirname, './src/schemas'),
       '@ui': path.resolve(__dirname, './src/components/ui'),
     },
   },

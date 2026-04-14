@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import AuthLayout from '@components/layout/auth-layout';
 import Input from '@ui/input';
 import Button from '@ui/button';
 import { useForgotPassword } from '@hooks/use-auth';
 import { useTranslation } from 'react-i18next';
-import type { ForgotPasswordForm } from '@typing/auth-types';
+import { forgotPasswordSchema, type ForgotPasswordFormData } from '@schemas/auth.schema';
 import styles from './Auth.module.css';
 
 const ForgotPasswordPage: React.FC = () => {
@@ -16,12 +17,15 @@ const ForgotPasswordPage: React.FC = () => {
         handleSubmit, 
         formState: { errors },
         getValues,
-    } = useForm<ForgotPasswordForm>(); 
+    } = useForm<ForgotPasswordFormData>({
+        resolver: zodResolver(forgotPasswordSchema),
+        mode: 'onBlur',
+    }); 
 
     const forgotMutation = useForgotPassword();
     const [sent, setSent] = useState(false);
 
-    const onSubmit = (data: ForgotPasswordForm) => {
+    const onSubmit = (data: ForgotPasswordFormData) => {
         forgotMutation.mutate(data, {
             onSuccess: () => setSent(true), //nếu spi trả về thành công --> cập nhật trạng thái sent sang true 
         });
@@ -71,13 +75,7 @@ const ForgotPasswordPage: React.FC = () => {
                         placeholder="email@example.com"
                         autoComplete="email"
                         error={errors.email?.message}
-                        {...register('email', {
-                            required: t('validation.usernameRequired'),
-                            pattern: {
-                                value: /^[^@]+@[^@]+\.[^@]+$/,
-                                message: t('validation.emailInvalid'),
-                            },
-                        })}
+                        {...register('email')}
                     />
 
                     <Button type="submit" fullWidth loading={forgotMutation.isPending}>

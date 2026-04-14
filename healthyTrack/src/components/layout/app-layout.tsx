@@ -1,10 +1,6 @@
-import React, { useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
-import { useAuthStore } from '@store/auth-store';
-import { useThemeStore } from '@store/theme-store';
-import { useProfile } from '@hooks/use-onboarding';
-import LanguageSwitcher from '@ui/language-switcher';
+import React, { useState, useCallback } from 'react';
+import { AppLayoutSidebar } from './app-layout-sidebar';
+import { AppLayoutTopbar } from './app-layout-topbar';
 import styles from './app-layout.module.css';
 
 interface AppLayoutProps {
@@ -14,109 +10,33 @@ interface AppLayoutProps {
 
 const AppLayout: React.FC<AppLayoutProps> = ({ children, title }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const { t, i18n } = useTranslation();
-  const { user, logout } = useAuthStore();
-  const { isDark, toggleTheme } = useThemeStore();
-  const { data: profile } = useProfile();
-  const navigate = useNavigate();
 
-  const NAV_ITEMS = [
-    { to: '/dashboard', icon: '◈', label: t('nav.dashboard') },
-    { to: '/diary', icon: '📓', label: t('nav.diary') },
-    { to: '/reports', icon: '📊', label: t('nav.reports') },
-    { to: '/profile', icon: '👤', label: t('nav.profile') },
-  ];
+  const handleSidebarToggle = useCallback(() => {
+    setSidebarOpen((prev) => !prev);
+  }, []);
 
-  const handleLogout = () => {
-    logout();
-    navigate('/login');
-  };
-
-  const goalLabel = profile?.goal === 'lose'
-    ? t('onboarding.lose')
-    : profile?.goal === 'gain'
-      ? t('onboarding.gain')
-      : t('onboarding.maintain');
-
-  const initials = user
-    ? (user.firstName[0] + user.lastName[0]).toUpperCase()
-    : '?';
+  const handleSidebarClose = useCallback(() => {
+    setSidebarOpen(false);
+  }, []);
 
   return (
     <div className={styles.root}>
-      <aside className={`${styles.sidebar} ${sidebarOpen ? styles.sidebarOpen : ''}`}>
-        <div className={styles.brand}>
-          <span className={styles.brandIcon}>🌿</span>
-          <span className={styles.brandName}>HealthyTrack</span>
-        </div>
+      <AppLayoutSidebar open={sidebarOpen} onClose={handleSidebarClose} />
 
-        <nav className={styles.nav}>
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              className={({ isActive }) =>
-                `${styles.navItem} ${isActive ? styles.navActive : ''}`
-              }
-              onClick={() => setSidebarOpen(false)}
-            >
-              <span className={styles.navIcon}>{item.icon}</span>
-              {item.label}
-            </NavLink>
-          ))}
-        </nav>
+      {sidebarOpen && (
+        <div className={styles.overlay} onClick={handleSidebarClose} />
+      )}
 
-        <div className={styles.sidebarBottom}>
-          <button className={styles.themeBtn} onClick={toggleTheme}>
-            {isDark ? `☀ ${t('profile.lightMode')}` : `🌙 ${t('profile.darkMode')}`}
-          </button>
-
-          <div className={styles.userRow}>
-            <div className={styles.avatar}>{initials}</div>
-            <div className={styles.userInfo}>
-              <div className={styles.userName}>
-                {user?.lastName} {user?.firstName}
-              </div>
-              {profile && (
-                <div className={styles.userGoal}>
-                  {t('profile.goal')}: {goalLabel}
-                </div>
-              )}
-            </div>
-          </div>
-
-          <button className={styles.logoutBtn} onClick={handleLogout}>
-            {t('auth.logout')}
-          </button>
-        </div>
-      </aside>
-
-      {sidebarOpen && <div className={styles.overlay} onClick={() => setSidebarOpen(false)} />}
-
-      {/* Main */}
       <div className={styles.main}>
-        <header className={styles.topbar}>
-          <button className={styles.hamburger} onClick={() => setSidebarOpen(!sidebarOpen)} aria-label="Toggle menu">
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-          <div>
-            <div className={styles.topbarTitle}>{title}</div>
-            <div className={styles.topbarDate}>
-              {new Date().toLocaleDateString(
-                i18n.language === 'vi' ? 'vi-VN' : 'en-US',
-                { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' }
-              )}
-            </div>
-          </div>
-          <LanguageSwitcher />
-        </header>
-
+        <AppLayoutTopbar
+          title={title}
+          onMenuToggle={handleSidebarToggle}
+        />
         <div className={styles.content}>{children}</div>
       </div>
     </div>
   );
 };
 
+AppLayout.displayName = 'AppLayout';
 export default AppLayout;

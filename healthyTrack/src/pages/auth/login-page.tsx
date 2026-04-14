@@ -1,11 +1,12 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { Link } from 'react-router-dom';
 import AuthLayout from '@components/layout/auth-layout';
 import Input from '@ui/input';
 import Button from '@ui/button';
 import { useLogin } from '@hooks/use-auth';
-import type { LoginForm } from '@typing/auth-types';
+import { loginSchema, type LoginFormData } from '@schemas/auth.schema';
 import { useTranslation } from 'react-i18next';
 import styles from './Auth.module.css';
 
@@ -15,11 +16,14 @@ const LoginPage: React.FC = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<LoginForm>();
+    } = useForm<LoginFormData>({
+        resolver: zodResolver(loginSchema),
+        mode: 'onBlur',
+    });
 
     const loginMutation = useLogin();
 
-    const onSubmit = (data: LoginForm) => {
+    const onSubmit = (data: LoginFormData) => {
         loginMutation.mutate(data);
     };
 
@@ -46,10 +50,7 @@ const LoginPage: React.FC = () => {
                         placeholder={t('auth.username')}
                         autoComplete="username"
                         error={errors.username?.message}
-                        {...register('username', {
-                            required: t('validation.usernameRequired'),
-                            minLength: { value: 3, message: t('validation.usernameMin') },
-                        })}
+                        {...register('username')}
                     />
                     <Input
                         label={t('auth.password')}
@@ -57,9 +58,7 @@ const LoginPage: React.FC = () => {
                         placeholder="••••••••"
                         autoComplete="current-password"
                         error={errors.password?.message}
-                        {...register('password', {
-                            required: t('validation.passwordRequired'),
-                        })}
+                        {...register('password')}
                     />
                     <div className={styles.forgotRow}>
                         <Link to="/forgot-password" className={styles.forgotLink}>

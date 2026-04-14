@@ -1,5 +1,6 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useSearchParams, Link } from 'react-router-dom';
 import AuthLayout from '@components/layout/auth-layout';
 import Input from '@ui/input';
@@ -7,7 +8,7 @@ import Button from '@ui/button';
 import PasswordStrength from '@ui/password-strength';
 import { useResetPassword } from '@hooks/use-auth';
 import { useTranslation } from 'react-i18next';
-import type { ResetPasswordForm } from '@typing/auth-types';
+import { resetPasswordSchema, type ResetPasswordFormData } from '@schemas/auth.schema';
 import styles from './Auth.module.css';
 
 const ResetPasswordPage: React.FC = () => {
@@ -20,12 +21,15 @@ const ResetPasswordPage: React.FC = () => {
         handleSubmit,
         watch,
         formState: { errors },
-    } = useForm<ResetPasswordForm>();
+    } = useForm<ResetPasswordFormData>({
+        resolver: zodResolver(resetPasswordSchema),
+        mode: 'onBlur',
+    });
 
     const resetMutation = useResetPassword();
     const password = watch('password', '');
 
-    const onSubmit = (data: ResetPasswordForm) => {
+    const onSubmit = (data: ResetPasswordFormData) => {
         resetMutation.mutate({ token, password: data.password });
     };
 
@@ -76,10 +80,7 @@ const ResetPasswordPage: React.FC = () => {
                             placeholder="Tối thiểu 8 ký tự"
                             autoComplete="new-password"
                             error={errors.password?.message}
-                            {...register('password', {
-                                required: t('validation.passwordRequired'),
-                                minLength: { value: 8, message: t('validation.passwordMin') },
-                            })}
+                            {...register('password')}
                         />
                         <PasswordStrength password={password} />
                     </div>
@@ -90,10 +91,7 @@ const ResetPasswordPage: React.FC = () => {
                         placeholder={t('auth.confirmNewPassword')}
                         autoComplete="new-password"
                         error={errors.confirmPassword?.message}
-                        {...register('confirmPassword', {
-                            required: t('validation.confirmPasswordRequired'),
-                            validate: (val) => val === password || t('validation.passwordMismatch'),
-                        })}
+                        {...register('confirmPassword')}
                     />
 
                     <Button

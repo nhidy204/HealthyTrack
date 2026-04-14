@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import type { OnboardingForm } from '@typing/onboarding-types';
+import { onboardingSchema, type OnboardingFormData } from '@schemas/onboarding.schema';
 import { calcNutritionPlan } from '@utils/nutrition';
 import { useSaveProfile } from '@hooks/use-onboarding';
 import LanguageSwitcher from '@ui/language-switcher';
@@ -26,14 +27,15 @@ const BasicInfoPage: React.FC = () => {
         { label: t('onboarding.result'), subtitle: t('onboarding.resultSub') },
     ];
 
-    const STEP_FIELDS: (keyof OnboardingForm)[][] = [
+    const STEP_FIELDS: (keyof OnboardingFormData)[][] = [
         ['gender', 'age', 'height', 'weight'],
         ['goal'],
         ['activityLevel'],
         [],
     ];
 
-    const methods = useForm<OnboardingForm>({
+    const methods = useForm<OnboardingFormData>({
+        resolver: zodResolver(onboardingSchema),
         mode: 'onTouched',
         defaultValues: {
             gender: undefined,
@@ -55,7 +57,7 @@ const BasicInfoPage: React.FC = () => {
 
     const goBack = () => setCurrentStep((s) => Math.max(s - 1, 0));
 
-    const onSubmit = (data: OnboardingForm) => {
+    const onSubmit = (data: OnboardingFormData) => {
         const plan = calcNutritionPlan(
             { gender: data.gender, age: data.age, height: data.height, weight: data.weight },
             data.goal,
