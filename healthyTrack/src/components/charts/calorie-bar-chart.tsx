@@ -64,4 +64,5 @@ const CalorieBarChart: React.FC<CalorieBarChartProps> = ({ data, target }) => {
     );
 };
 
+CalorieBarChart.displayName = 'CalorieBarChart';
 export default CalorieBarChart;

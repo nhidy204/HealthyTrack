@@ -79,4 +79,5 @@ const StatsPanelComponent: React.FC<StatsPanelProps> = ({ weight, height, bmr, t
     );
 };
 
+StatsPanelComponent.displayName = 'StatsPanel';
 export default StatsPanelComponent;

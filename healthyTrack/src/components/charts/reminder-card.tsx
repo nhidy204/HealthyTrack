@@ -73,4 +73,5 @@ const ReminderCard: React.FC<ReminderCardProps> = ({ exerciseMinutes = 0 }) => {
     );
 };
 
+ReminderCard.displayName = 'ReminderCard';
 export default ReminderCard;
