@@ -1,22 +1,60 @@
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Modern Minimal - Green Theme */
+  --primary: #0f6e56;
+  --primary-light: #10b981;
+  --primary-dark: #065f46;
+  /* Semantic colors */
+  --error: #ef4444;
+  --success: #10b981;
+  --warning: #f59e0b;
+  --info: #3b82f6;
+  
+  /* Backward compatibility - status colors light/dark variants */
+  --color-danger: #ef4444;
+  --color-danger-light: rgba(239, 68, 68, 0.1);
+  --color-danger-border: rgba(239, 68, 68, 0.3);
+  --color-success: #10b981;
+  --color-success-light: rgba(16, 185, 129, 0.1);
+  --color-success-border: rgba(16, 185, 129, 0.3);
+  --color-warning: #f59e0b;
+  --color-warning-light: rgba(245, 158, 11, 0.1);
+  --color-warning-border: rgba(245, 158, 11, 0.3);
+  --color-info: #3b82f6;
+  --color-info-light: rgba(59, 130, 246, 0.1);
+  --color-info-border: rgba(59, 130, 246, 0.3);
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
+  --text: #374151;
+  --text-light: #6b7280;
+  --text-h: #111827;
+  --bg: #ffffff;
+  --bg-alt: #f9fafb;
+  --border: #e5e7eb;
+  --accent: #0f6e56;
+  --accent-bg: rgba(15, 110, 86, 0.1);
+  --accent-border: rgba(15, 110, 86, 0.3);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.05);
+  --shadow-lg: 0 10px 25px rgba(0, 0, 0, 0.1);
+
+  --color-text: #374151;
+  --color-text-secondary: #6b7280;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f9fafb;
+  --color-border: #e5e7eb;
+  --color-bg: #ffffff;
+
+  --sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  --heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --mono: ui-monospace, Consolas, monospace;
+  
+  /* Backward compatibility mappings for component CSS */
+  --color-primary: #0f6e56;
+  --color-primary-dark: #065f46;
+  --color-primary-light: #10b981;
+  --font-display: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --social-bg: rgba(15, 110, 86, 0.08);
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
+  font: 16px/1.5 var(--sans);
+  letter-spacing: 0.3px;
   color-scheme: light dark;
   color: var(--text);
   background: var(--bg);
@@ -26,28 +64,62 @@
   -moz-osx-font-smoothing: grayscale;
 
   @media (max-width: 1024px) {
-    font-size: 16px;
+    font-size: 15px;
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
+[data-theme="dark"] {
+  --text: #e5e7eb;
+  --text-light: #d1d5db;
+  --text-h: #f9fafb;
+  --bg: #111827;
+  --bg-alt: #1f2937;
+  --border: #374151;
+  --accent: #34d399;
+  --accent-bg: rgba(52, 211, 153, 0.15);
+  --accent-border: rgba(52, 211, 153, 0.3);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.3), 0 4px 12px rgba(0, 0, 0, 0.25);
 
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+  --color-text: #e5e7eb;
+  --color-text-secondary: #d1d5db;
+  --color-surface: #1f2937;
+  --color-surface-alt: #374151;
+  --color-border: #374151;
+  --color-bg: #111827;
+  
+  /* Dark theme color mappings */
+  --color-primary: #34d399;
+  --color-primary-dark: #10b981;
+  --color-primary-light: #6ee7b7;
+  --social-bg: rgba(52, 211, 153, 0.1);
+  
+  /* Dark theme status colors */
+  --color-danger: #fca5a5;
+  --color-danger-light: rgba(252, 165, 165, 0.15);
+  --color-danger-border: rgba(252, 165, 165, 0.4);
+  --color-success: #86efac;
+  --color-success-light: rgba(134, 239, 172, 0.15);
+  --color-success-border: rgba(134, 239, 172, 0.4);
+  --color-warning: #fcd34d;
+  --color-warning-light: rgba(252, 211, 77, 0.15);
+  --color-warning-border: rgba(252, 211, 77, 0.4);
+  --color-info: #93c5fd;
+  --color-info-light: rgba(147, 197, 253, 0.15);
+  --color-info-border: rgba(147, 197, 253, 0.4);
+}
+
+/* Reset & Base */
+html {
+  scroll-behavior: smooth;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
 #root {
@@ -56,58 +128,151 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  min-height: 100svh;
-  box-sizing: border-box;
+  min-height: 100vh;
 }
 
-body {
-  margin: 0;
-}
-
-h1,
-h2 {
+/* Typography */
+h1, h2, h3, h4, h5, h6 {
   font-family: var(--heading);
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-h);
+  margin: 0;
+  line-height: 1.2;
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
+  font-size: 1.875rem;
+  margin-bottom: 1.25rem;
+}
 
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
 }
 
 p {
-  margin: 0;
+  margin: 0 0 1rem 0;
+  color: var(--text);
+  line-height: 1.6;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+p:last-child {
+  margin-bottom: 0;
+}
+
+a {
+  color: var(--primary);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+a:hover {
+  color: var(--primary-light);
 }
 
 code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+  font-family: var(--mono);
+  background: var(--bg-alt);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  color: var(--text-h);
+  font-size: 0.9em;
 }
+
+/* Form Elements */
+input:not([type="checkbox"]):not([type="radio"]),
+textarea,
+select {
+  font-family: var(--sans);
+  font-size: 1rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid var(--border);
+  border-radius: 8px;
+  background: var(--color-surface);
+  color: var(--text);
+  transition: all 0.2s;
+}
+
+input:not([type="checkbox"]):not([type="radio"]):focus,
+textarea:focus,
+select:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px var(--accent-bg);
+}
+
+input:not([type="checkbox"]):not([type="radio"]):disabled,
+textarea:disabled,
+select:disabled {
+  background: var(--bg-alt);
+  color: var(--text-light);
+  opacity: 0.6;
+}
+
+/* Buttons */
+button {
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th {
+  background: var(--bg-alt);
+  color: var(--text-h);
+  font-weight: 600;
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 2px solid var(--border);
+}
+
+td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+
+tr:hover {
+  background: var(--accent-bg);
+}
+
+/* Lists */
+ul, ol {
+  margin: 0 0 1rem 0;
+  padding-left: 2rem;
+}
+
+li {
+  margin-bottom: 0.5rem;
+  color: var(--text);
+}
+
+/* Utilities */
+.text-center { text-align: center; }
+.text-muted { color: var(--text-light); }
+.flex { display: flex; }
+.gap-2 { gap: 1rem; }
+.hidden { display: none !important; }

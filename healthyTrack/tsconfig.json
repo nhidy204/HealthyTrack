@@ -1,10 +1,3 @@
-// {
-//   "files": [],
-//   "references": [
-//     { "path": "./tsconfig.app.json" },
-//     { "path": "./tsconfig.node.json" }
-//   ]
-// }
 {
   "compilerOptions": {
     "types": ["node"],
@@ -15,33 +8,34 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
+    "skipLibCheck": true,
     "jsx": "react-jsx",
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "baseUrl": "./src",
     "paths": {
-      "@/*": ["./*"],
-      "@features/*": ["./features/*"],
-      "@shared/*": ["./features/shared/*"],
-      "@auth/*": ["./features/auth/*"],
-      "@diary/*": ["./features/diary/*"],
-      "@dashboard/*": ["./features/dashboard/*"],
-      "@onboarding/*": ["./features/onboarding/*"],
-      "@profile/*": ["./features/profile/*"],
-      "@reports/*": ["./features/reports/*"],
-      "@components/*": ["./features/shared/components/*"],
-      "@layout/*": ["./features/shared/components/layout/*"],
-      "@ui/*": ["./features/shared/components/ui/*"],
-      "@hooks/*": ["./features/shared/hooks/*"],
-      "@services/*": ["./features/shared/services/*"],
-      "@store/*": ["./features/shared/store/*"],
-      "@typing/*": ["./features/shared/types/*"],
-      "@utils/*": ["./features/shared/utils/*"],
-      "@styles/*": ["./features/shared/styles/*"],
-      "@locales/*": ["./features/shared/locales/*"]
+      "@/*": ["./src/*"],
+      "@features/*": ["./src/features/*"],
+      "@shared/*": ["./src/features/shared/*"],
+      "@auth/*": ["./src/features/auth/*"],
+      "@diary/*": ["./src/features/diary/*"],
+      "@dashboard/*": ["./src/features/dashboard/*"],
+      "@onboarding/*": ["./src/features/onboarding/*"],
+      "@profile/*": ["./src/features/profile/*"],
+      "@reports/*": ["./src/features/reports/*"],
+      "@components/*": ["./src/features/shared/components/*"],
+      "@layout/*": ["./src/features/shared/components/layout/*"],
+      "@ui/*": ["./src/features/shared/components/ui/*"],
+      "@hooks/*": ["./src/features/shared/hooks/*"],
+      "@services/*": ["./src/features/shared/services/*"],
+      "@store/*": ["./src/features/shared/store/*"],
+      "@typing/*": ["./src/features/shared/types/*"],
+      "@utils/*": ["./src/features/shared/utils/*"],
+      "@styles/*": ["./src/features/shared/styles/*"],
+      "@locales/*": ["./src/features/shared/locales/*"]
     }
   },
   "include": ["src"],
+  "exclude": ["**/*.test.ts", "**/*.test.tsx", "**/*.spec.ts", "**/*.spec.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

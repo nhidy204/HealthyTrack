@@ -58,5 +58,6 @@ const WeightLineChart: React.FC<WeightLineChartProps> = ({ data }) => {
     );
 };
 
+WeightLineChart.displayName = 'WeightLineChart';
 export default WeightLineChart;
 

@@ -20,8 +20,10 @@ import styles from './profile-page.module.css';
 
 const ProfilePage: React.FC = () => {
     const { t } = useTranslation();
-    const { user, logout } = useAuthStore();
-    const { isDark, toggleTheme } = useThemeStore();
+    const user = useAuthStore((s) => s.user);
+    const logout = useAuthStore((s) => s.logout);
+    const isDark = useThemeStore((s) => s.isDark);
+    const toggleTheme = useThemeStore((s) => s.toggleTheme);
     const { data: profile, isLoading } = useProfile();
     const updateProfile = useUpdateUserProfile();
     const navigate = useNavigate();
@@ -87,7 +89,8 @@ const ProfilePage: React.FC = () => {
     }) : 0;
     const tdee = profile ? calcTDEE(bmr, profile.activityLevel) : 0;
 
-    const { waterReminderEnabled, setWaterReminder } = useNotificationStore();
+    const waterReminderEnabled = useNotificationStore((s) => s.waterReminderEnabled);
+    const setWaterReminder = useNotificationStore((s) => s.setWaterReminder);
     useWaterReminder(waterReminderEnabled);
 
     if (isLoading) {

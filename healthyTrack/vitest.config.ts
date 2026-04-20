@@ -1,19 +1,7 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
-import babel from 'vite-plugin-babel'
-import path from 'path'
+import { defineConfig } from 'vitest/config';
+import path from 'path';
 
 export default defineConfig({
-  plugins: [
-    react(),
-    babel({
-  babelConfig: {
-    plugins: [['babel-plugin-react-compiler', { 
-      development: 'all'  // ← Thêm dòng này
-    }]],
-  },
-}),
-  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
@@ -37,13 +25,9 @@ export default defineConfig({
       '@locales': path.resolve(__dirname, './src/features/shared/locales'),
     },
   },
-  server: {
-    port: 3000,
-    proxy: {
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-      },
-    },
+  test: {
+    globals: true,
+    environment: 'jsdom',
+    setupFiles: './src/test/setup.ts',
   },
-})
+});

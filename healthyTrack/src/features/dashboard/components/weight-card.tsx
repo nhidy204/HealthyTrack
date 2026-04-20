@@ -85,6 +85,7 @@ const WeightCard: React.FC = () => {
     );
 };
 
+WeightCard.displayName = 'WeightCard';
 export default WeightCard;
 
 

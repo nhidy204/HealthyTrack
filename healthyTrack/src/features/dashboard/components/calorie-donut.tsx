@@ -72,5 +72,6 @@ const CalorieDonut: React.FC<CalorieDonutProps> = ({ consumed, target }) => {
     );
 };
 
+CalorieDonut.displayName = 'CalorieDonut';
 export default CalorieDonut;
 
