@@ -9,7 +9,7 @@ export default defineConfig({
     babel({
   babelConfig: {
     plugins: [['babel-plugin-react-compiler', { 
-      development: 'all'  // ← Thêm dòng này
+      development: 'all' 
     }]],
   },
 }),
