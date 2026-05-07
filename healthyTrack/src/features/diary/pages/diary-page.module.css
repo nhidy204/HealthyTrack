@@ -1,0 +1,150 @@
+.layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.main {
+  min-width: 0;
+}
+
+.sidebar {
+  position: sticky;
+  top: 1.5rem;
+}
+
+@media (max-width: 900px) {
+  .layout {
+    grid-template-columns: 1fr;
+  }
+
+  .sidebar {
+    position: static;
+  }
+}
+
+/* Date nav */
+.dateNav {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.dateBtn {
+  width: 32px;
+  height: 32px;
+  border-radius: 7px;
+  border: 0.5px solid var(--color-border);
+  background: var(--color-surface);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s;
+}
+
+.dateBtn:hover:not(:disabled) {
+  background: var(--color-surface-alt);
+}
+
+.dateBtn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+.dateLabel {
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.dateSub {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-top: 1px;
+}
+
+/* Calo bar */
+.caloBar {
+  margin-bottom: 1.5rem;
+}
+
+.caloBarRow {
+  display: flex;
+  justify-content: space-between;
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin-bottom: 6px;
+}
+
+.bar {
+  height: 8px;
+  border-radius: 4px;
+  background: var(--color-border);
+  overflow: hidden;
+}
+
+.barFill {
+  height: 100%;
+  border-radius: 4px;
+  background: #0f6e56;
+  width: var(--fill-width, 0%);
+  transition: width 0.4s ease;
+}
+
+.barOver {
+  background: #E24B4A;
+}
+
+.consumedNormal {
+  color: #0f6e56;
+  font-weight: 600;
+}
+
+.consumedOver {
+  color: #c0392b;
+  font-weight: 600;
+}
+
+.overWarning {
+  font-size: 12px;
+  color: #c0392b;
+  background: #fef2f2;
+  border: 0.5px solid #fca5a5;
+  border-radius: 6px;
+  padding: 7px 12px;
+  margin-top: 8px;
+}
+
+.loading {
+  padding: 2rem;
+  text-align: center;
+  font-size: 13px;
+  color: var(--color-text-secondary);
+}
+
+.dailyTotal {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  margin-top: 4px;
+  background: var(--color-surface);
+  border-radius: 10px;
+  border: 0.5px solid var(--color-border);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+.dailyTotalNormal {
+  color: #0f6e56;
+}
+
+.dailyTotalOver {
+  color: #c0392b;
+}
