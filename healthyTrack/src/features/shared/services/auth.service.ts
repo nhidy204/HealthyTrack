@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { useAuthStore } from '@auth/auth.store';
 import type {
     LoginPayload,
     RegisterPayload,
@@ -12,13 +13,27 @@ const api = axios.create({
     headers: { 'Content-Type': 'application/json' },
 });
 
-//attach token to every request
+// Attach token to every request
+// Priority: Check Zustand store first, then fallback to localStorage (for app startup)
 api.interceptors.request.use((config) => {
-    const raw = localStorage.getItem('vitatrack-auth');
-    if (raw) {
-        const parsed = JSON.parse(raw);
-        const token = parsed?.state?.token;
-        if (token) config.headers.Authorization = `Bearer ${token}`;
+    // First try to get token from Zustand store (always fresh when app is running)
+    let token = useAuthStore.getState().token;
+    
+    // Fallback to localStorage during app startup before Zustand hydrates
+    if (!token) {
+        try {
+            const raw = localStorage.getItem('vitatrack-auth');
+            if (raw) {
+                const parsed = JSON.parse(raw);
+                token = parsed?.state?.token;
+            }
+        } catch {
+            // Ignore parse errors
+        }
+    }
+    
+    if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
 });

@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useForm, FormProvider } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { onboardingSchema, type OnboardingFormData } from '@onboarding/onboarding.schema';
 import { calcNutritionPlan } from '@shared/utils/nutrition';
-import { useSaveProfile } from '@shared/hooks/use-onboarding.hook';
+import { useSaveProfile, useProfile } from '@shared/hooks/use-onboarding.hook';
 import LanguageSwitcher from '@ui/language-switcher';
 import BasicInfoStep from './steps/basic-info-step';
 import GoalStep from './steps/goal-step';
@@ -19,6 +19,8 @@ const BasicInfoPage: React.FC = () => {
     const [currentStep, setCurrentStep] = useState(0);
     const navigate = useNavigate();
     const saveProfile = useSaveProfile();
+    // Skip profile check on onboarding page - don't query /profile, user is still setting up
+    const { data: profile, isLoading } = useProfile(true);
 
     const STEPS = [
         { label: t('onboarding.basicInfo'), subtitle: t('onboarding.basicInfoSub') },
@@ -49,6 +51,13 @@ const BasicInfoPage: React.FC = () => {
 
     const { handleSubmit, trigger } = methods;
 
+    // Skip profile check on onboarding page - user is in middle of setup, profile won't exist yet
+    useEffect(() => {
+        if (!isLoading && profile) {
+            navigate('/dashboard', { replace: true });
+        }
+    }, [profile, isLoading, navigate]);
+
     const goNext = async () => {
         const fields = STEP_FIELDS[currentStep];
         const valid = fields.length === 0 || await trigger(fields);
@@ -74,6 +83,11 @@ const BasicInfoPage: React.FC = () => {
     ];
 
     const isLastStep = currentStep === STEPS.length - 1;
+
+    // Show loading while checking if profile exists
+    if (isLoading) {
+        return <div className={styles.root} />;
+    }
 
     return (
         <FormProvider {...methods}>

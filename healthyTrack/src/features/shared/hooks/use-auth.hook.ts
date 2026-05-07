@@ -11,6 +11,9 @@ export function useLogin() {
     return useMutation({
         mutationFn: (payload: LoginPayload) => authService.login(payload),
         onSuccess: ({ user, token }) => {
+            // Clear old token from localStorage before setting new one to prevent token collision
+            localStorage.removeItem('vitatrack-auth');
+            // Update auth store with new user and token
             setAuth(user, token);
             // Redirect: nếu chưa có basic info → onboarding, ngược lại → dashboard
             navigate('/onboarding');
@@ -25,7 +28,17 @@ export function useRegister() {
     return useMutation({
         mutationFn: (payload: RegisterPayload) => authService.register(payload),
         onSuccess: ({ user, token }) => {
+            console.log('Register success, received user:', user);
+            console.log('Token from register:', token.substring(0, 20) + '...');
+            
+            // Clear old token from localStorage before setting new one to prevent token collision
+            localStorage.removeItem('vitatrack-auth');
+            // Update auth store with new user and token
             setAuth(user, token);
+            console.log('Auth store updated. Store user:', useAuthStore.getState().user);
+            console.log('Auth store token:', useAuthStore.getState().token?.substring(0, 20) + '...');
+            
+            // Redirect to onboarding
             navigate('/onboarding');
         },
     });

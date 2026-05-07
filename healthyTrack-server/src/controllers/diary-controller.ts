@@ -33,7 +33,7 @@ export async function updateEntry(req: AuthRequest, res: Response) {
         const entry = await FoodEntry.findOneAndUpdate(
             { _id: req.params.id, user: req.userId },
             req.body,
-            { new: true, runValidators: true }
+            { returnDocument: 'after', runValidators: true }
         );
         if (!entry) return res.status(404).json({ message: 'Không tìm thấy món ăn.' });
         return res.json(entry);

@@ -41,7 +41,7 @@ export async function logWeight(req: AuthRequest, res: Response) {
         const log = await WeightLog.findOneAndUpdate(
             { user: req.userId, date },
             { user: req.userId, weight, date },
-            { upsert: true, new: true }
+            { upsert: true, returnDocument: 'after' }
         );
         // Also update profile weight
         await Profile.findOneAndUpdate({ user: req.userId }, { weight });
@@ -77,7 +77,7 @@ export async function logWater(req: AuthRequest, res: Response) {
         const log = await WaterLog.findOneAndUpdate(
             { user: req.userId, date },
             { user: req.userId, glasses, date },
-            { upsert: true, new: true }
+            { upsert: true, returnDocument: 'after' }
         );
         return res.json(log);
     } catch {

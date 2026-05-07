@@ -17,8 +17,11 @@ export const useAuthStore = create<AuthStore>()(
             setAuth: (user, token) =>
                 set({ user, token, isAuthenticated: true }),
 
-            logout: () =>
-                set({ user: null, token: null, isAuthenticated: false }),
+            logout: () => {
+                // Clear localStorage to ensure complete session cleanup
+                localStorage.removeItem('vitatrack-auth');
+                set({ user: null, token: null, isAuthenticated: false });
+            },
         }),
         { name: 'vitatrack-auth' }
     )

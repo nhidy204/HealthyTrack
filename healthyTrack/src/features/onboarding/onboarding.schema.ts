@@ -37,10 +37,12 @@ export const goalsSchema = z.object({
     errorMap: () => ({ message: 'Please select a goal' }),
   }) as z.ZodType<Goal>,
   activityLevel: z
-    .enum(['1.2', '1.375', '1.55', '1.725', '1.9'] as const, {
+    .number({
       errorMap: () => ({ message: 'Please select an activity level' }),
     })
-    .transform((val) => parseFloat(val) as ActivityLevel),
+    .refine((val) => [1.2, 1.375, 1.55, 1.725, 1.9].includes(val), {
+      message: 'Please select a valid activity level',
+    }) as z.ZodType<ActivityLevel>,
 });
 
 export type GoalsFormData = z.infer<typeof goalsSchema>;

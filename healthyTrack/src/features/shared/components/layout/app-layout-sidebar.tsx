@@ -2,7 +2,6 @@ import React, { useCallback, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth, useTheme } from '@shared/hooks/use-store.hook';
-import { useProfile } from '@shared/hooks/use-onboarding.hook';
 import styles from './app-layout.module.css';
 
 interface AppLayoutSidebarProps {
@@ -48,24 +47,11 @@ const UserSection: React.FC<{ onClose: () => void }> = ({ onClose }) => {
   const { t } = useTranslation();
   const { user, logout } = useAuth();
   const { isDark, toggleTheme } = useTheme();
-  const { data: profile } = useProfile();
 
   const handleLogout = useCallback(() => {
     logout();
     onClose();
   }, [logout, onClose]);
-
-  const goalLabel = useMemo(() => {
-    if (!profile) return '';
-    switch (profile.goal) {
-      case 'lose':
-        return t('onboarding.lose');
-      case 'gain':
-        return t('onboarding.gain');
-      default:
-        return t('onboarding.maintain');
-    }
-  }, [profile, t]);
 
   const initials = useMemo(() => {
     if (!user) return '?';
@@ -90,11 +76,6 @@ const UserSection: React.FC<{ onClose: () => void }> = ({ onClose }) => {
           <div className={styles.userName}>
             {user?.lastName} {user?.firstName}
           </div>
-          {profile && (
-            <div className={styles.userGoal}>
-              {t('profile.goal')}: {goalLabel}
-            </div>
-          )}
         </div>
       </div>
 

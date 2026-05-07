@@ -26,6 +26,7 @@ export async function register(req: Request, res: Response) {
         console.log('User created:', user._id);
 
         const token = signToken(String(user._id));
+        console.log('Token signed for userId:', user._id, 'token:', token.substring(0, 20) + '...');
         return res.status(201).json({ user, token });
     } catch (err) {
         console.error('Register error details:', err);

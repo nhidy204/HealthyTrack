@@ -21,7 +21,7 @@ export async function setupProfile(req: AuthRequest, res: Response) {
         const profile = await Profile.findOneAndUpdate(
             { user: req.userId },
             { user: req.userId, gender, age, height, weight, goal, activityLevel, bmr, tdee, targetCalories },
-            { upsert: true, new: true, runValidators: true }
+            { upsert: true, returnDocument: 'after', runValidators: true }
         );
 
         return res.status(201).json({ profile, plan: { bmr, tdee, targetCalories, goal } });
@@ -65,7 +65,7 @@ export async function updateProfile(req: AuthRequest, res: Response) {
         const profile = await Profile.findOneAndUpdate(
             { user: req.userId },
             { gender, age, height, weight, goal, activityLevel, bmr, tdee, targetCalories },
-            { new: true, runValidators: true }
+            { returnDocument: 'after', runValidators: true }
         );
 
         return res.json(profile);
